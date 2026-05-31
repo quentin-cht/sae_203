@@ -1,0 +1,9 @@
+# Config BDD (ne jamais push les identifiants)
+includes/config.php
+
+# MAMP / système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
