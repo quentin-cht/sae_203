@@ -78,7 +78,12 @@ $places_salles = [
         <div class="admin-creneaux-group">
             <p class="admin-creneaux-label">CRÉNEAUX JEUDI 18 JUIN</p>
             <div class="admin-creneaux">
-                <button class="admin-creneau admin-creneau--active" type="button">17h30</button>
+                <button class="admin-creneau admin-creneau--active" type="button">15h00</button>
+                <button class="admin-creneau" type="button">15h30</button>
+                <button class="admin-creneau" type="button">16h00</button>
+                <button class="admin-creneau" type="button">16h30</button>
+                <button class="admin-creneau" type="button">17h00</button>
+                <button class="admin-creneau" type="button">17h30</button>
                 <button class="admin-creneau" type="button">18h00</button>
                 <button class="admin-creneau" type="button">19h00</button>
                 <button class="admin-creneau" type="button">19h30</button>
@@ -134,6 +139,11 @@ $places_salles = [
             </select>
             <select name="creneau" class="admin-input">
                 <option value="">Tous les créneaux</option>
+                <option value="jeudi-15h00">Jeudi 15h00</option>
+                <option value="jeudi-15h30">Jeudi 15h30</option>
+                <option value="jeudi-16h00">Jeudi 16h00</option>
+                <option value="jeudi-16h30">Jeudi 16h30</option>
+                <option value="jeudi-17h00">Jeudi 17h00</option>
                 <option value="jeudi-17h30">Jeudi 17h30</option>
                 <option value="jeudi-18h00">Jeudi 18h00</option>
                 <option value="jeudi-19h00">Jeudi 19h00</option>
@@ -236,9 +246,11 @@ $places_salles = [
                     <div class="form-group">
                         <label class="form-label">Créneau</label>
                         <select name="creneau" id="edit-creneau" class="admin-input">
-                            <option>17h30</option><option>18h00</option><option>19h00</option>
-                            <option>19h30</option><option>20h00</option><option>9h30</option>
-                            <option>10h00</option><option>10h30</option><option>11h00</option>
+                            <option>15h00</option><option>15h30</option><option>16h00</option>
+                            <option>16h30</option><option>17h00</option><option>17h30</option>
+                            <option>18h00</option><option>19h00</option><option>19h30</option>
+                            <option>20h00</option><option>9h30</option><option>10h00</option>
+                            <option>10h30</option><option>11h00</option>
                         </select>
                     </div>
                     <div class="form-group">

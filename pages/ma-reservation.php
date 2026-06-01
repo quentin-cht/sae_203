@@ -6,7 +6,18 @@ include '../includes/header.php';
 $reservation = null;
 $erreur = '';
 
-if (isset($_POST['email']) && isset($_POST['reference'])) {
+if (isset($_GET['demo']) && $_GET['demo'] == '1') {
+    $reservation = [
+        "reference" => "ELL-2024-01",
+        "nom"       => "Martin",
+        "prenom"    => "Sophie",
+        "email"     => "test.1@email.fr",
+        "salle"     => "Plateau Régie",
+        "creneau"   => "18h00 — Jeudi 18 juin",
+        "places"    => 2,
+        "statut"    => "Confirmée"
+    ];
+} elseif (isset($_POST['email']) && isset($_POST['reference'])) {
     $email     = $_POST['email'];
     $reference = $_POST['reference'];
 

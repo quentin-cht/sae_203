@@ -44,7 +44,12 @@ include '../includes/header.php';
             <div id="jeudi-0">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-17h30" checked> 17h30</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-17h30"> 17h30</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-18h00"> 18h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-19h00"> 19h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-19h30"> 19h30</label>
@@ -60,7 +65,7 @@ include '../includes/header.php';
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
-            <div class="jauge-banner">🎫 Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
+            <div class="jauge-banner">Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
         </div>
 
         <!-- Bloc salle 2 (caché par défaut) -->
@@ -90,7 +95,12 @@ include '../includes/header.php';
             <div id="jeudi-1">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-17h30" checked> 17h30</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-17h30"> 17h30</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-18h00"> 18h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-19h00"> 19h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-19h30"> 19h30</label>
@@ -106,7 +116,7 @@ include '../includes/header.php';
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
-            <div class="jauge-banner">🎫 Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
+            <div class="jauge-banner">Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
         </div>
 
         <!-- Bloc salle 3 (caché par défaut) -->
@@ -136,7 +146,12 @@ include '../includes/header.php';
             <div id="jeudi-2">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-17h30" checked> 17h30</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-17h30"> 17h30</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-18h00"> 18h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-19h00"> 19h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-19h30"> 19h30</label>
@@ -152,7 +167,7 @@ include '../includes/header.php';
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
-            <div class="jauge-banner">🎫 Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
+            <div class="jauge-banner">Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
         </div>
 
         <!-- Bloc salle 4 (caché par défaut) -->
@@ -182,7 +197,12 @@ include '../includes/header.php';
             <div id="jeudi-3">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-17h30" checked> 17h30</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-17h30"> 17h30</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-18h00"> 18h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-19h00"> 19h00</label>
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-19h30"> 19h30</label>
@@ -198,7 +218,7 @@ include '../includes/header.php';
                     <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
-            <div class="jauge-banner">🎫 Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
+            <div class="jauge-banner">Places restantes : <strong>8 / 12</strong> — 12 personnes maximum par salle</div>
         </div>
 
         <!-- Boutons ajouter -->
@@ -253,7 +273,7 @@ include '../includes/header.php';
                 <input type="radio" name="categorie" value="professionnel" onchange="afficherBuffet(this)"> Professionnel·le / Partenaire
             </label>
             <label class="radio-option" onclick="selectionnerCategorie(this)">
-                <input type="radio" name="categorie" value="visiteur" onchange="afficherBuffet(this)"> Visiteur·se extérieur·e
+                <input type="radio" name="categorie" value="visiteur" onchange="afficherBuffet(this)"> Visiteur·s extérieur·e
             </label>
         </fieldset>
 
@@ -296,6 +316,19 @@ function switchJour(idGroupe, bouton) {
         tabs[i].classList.remove('jour-tab--active');
     }
     bouton.classList.add('jour-tab--active');
+
+    // Cacher le buffet si vendredi est sélectionné
+    var buffet = document.getElementById('buffet-option');
+    if (buffet) {
+        if (idGroupe.indexOf('vendredi') !== -1) {
+            buffet.style.display = 'none';
+        } else {
+            var categorie = document.querySelector('input[name="categorie"]:checked');
+            if (categorie && categorie.value != 'etudiant_mmi') {
+                buffet.style.display = 'flex';
+            }
+        }
+    }
 }
 
 // Mettre en surbrillance la salle sélectionnée
