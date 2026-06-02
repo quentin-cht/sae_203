@@ -402,6 +402,7 @@ section { padding: 80px 48px; }
     justify-content: center;
     gap: 32px;
     align-self: center;
+    margin-right: 120px;
 }
 
 .footer__logos img {
@@ -529,6 +530,7 @@ section { padding: 80px 48px; }
 .info-card {
     background-color: var(--black);
     padding: 28px 24px;
+    text-align: center;
 }
 
 .info-card__title {

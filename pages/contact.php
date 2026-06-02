@@ -4,10 +4,10 @@ $rootPath = "../";
 include '../includes/header.php';
 
 $referents = [
-    ["nom" => "Étudiant·e agence1 / TP11", "email" => "referent1@etudiant.univ-smb.fr"],
-    ["nom" => "Étudiant·e agence2 / TP12", "email" => "referent2@etudiant.univ-smb.fr"],
-    ["nom" => "Étudiant·e agence3 / TP21", "email" => "referent3@etudiant.univ-smb.fr"],
-    ["nom" => "Étudiant·e agence4 / TP22", "email" => "referent4@etudiant.univ-smb.fr"],
+    ["nom" => "Référent·e Salle 001", "email" => "referent1@etudiant.univ-smb.fr"],
+    ["nom" => "Référent·e Salle 002", "email" => "referent2@etudiant.univ-smb.fr"],
+    ["nom" => "Référent·e Salle 005", "email" => "referent3@etudiant.univ-smb.fr"],
+    ["nom" => "Référent·e Plateau Régie", "email" => "referent4@etudiant.univ-smb.fr"],
 ];
 ?>
 

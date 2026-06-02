@@ -148,7 +148,7 @@ $salles = [
                 <h3 class="oeuvre__titre"><?php echo $oeuvre['titre']; ?></h3>
                 <p class="oeuvre__desc"><?php echo $oeuvre['desc']; ?></p>
                 <div class="oeuvre__jauge">
-                    <span class="oeuvre__jauge-icon">⬡⬡</span> 12 personnes maximum
+                    12 personnes maximum
                 </div>
             </div>
         </div>

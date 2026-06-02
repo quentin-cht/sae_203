@@ -46,27 +46,27 @@ include 'includes/header.php';
         <?php
         $salles = [
             [
-                "num"     => "Salle 002",
-                "nom"     => "Nom de la Salle",
-                "oeuvres" => ["Œuvre 1", "Œuvre 2", "Œuvre 3"],
+                "num"     => "Salle 021",
+                "nom"     => "Societ-e",
+                "oeuvres" => ["Community", "Distorsion"],
                 "img"     => ""
             ],
             [
                 "num"     => "Salle 001",
-                "nom"     => "Nom de la Salle",
-                "oeuvres" => ["Œuvre 1", "Œuvre 2", "Œuvre 3"],
+                "nom"     => "Horizon",
+                "oeuvres" => ["Bon Profil", "Antithèse", "Beauté hors du cadre"],
+                "img"     => ""
+            ],
+            [
+                "num"     => "Salle 002",
+                "nom"     => "L'Envers du Décor",
+                "oeuvres" => ["Tapis Rouge", "En Direct", "AD-HD"],
                 "img"     => ""
             ],
             [
                 "num"     => "Salle 005",
-                "nom"     => "Nom de la Salle",
-                "oeuvres" => ["Œuvre 1", "Œuvre 2", "Œuvre 3", "Œuvre 4"],
-                "img"     => ""
-            ],
-            [
-                "num"     => "Salle 021",
-                "nom"     => "Nom de la Salle",
-                "oeuvres" => ["Community", "Distorsion"],
+                "nom"     => "La Pépinière",
+                "oeuvres" => ["Lotus", "E-biscus", "La chute d'Alice", "Œuvre 4"],
                 "img"     => ""
             ],
         ];
