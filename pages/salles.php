@@ -76,11 +76,12 @@ $salles = [
     [
         "num"     => "Salle 005",
         "nom"     => "La Pépinière",
-        "concept" => "Comment les illusions numériques façonnent-elles notre rapport à l'identité et à la beauté ? À travers quatre œuvres interactives, notre salle explore la frontière entre ce que l'on est et ce que l'on projette en ligne.",
+        "concept" => "Comment les illusions numériques façonnent-elles notre rapport à l'identité et à la beauté ? À travers trois œuvres interactives, notre salle explore la frontière entre ce que l'on est et ce que l'on projette en ligne.",
         "oeuvres" => [
             [
                 "titre" => "Lotus",
-                "desc"  => "Une installation qui explore le renouveau identitaire à l'ère numérique. Comment se réinvente-t-on en ligne ? Une expérience sensorielle autour de la transformation et de la renaissance de l'image de soi.",
+                "desc"  => "Une chute. Un synthétiseur. Et vous au contrôle.
+                 Les notes jouées transforment en temps réel la descente d'Alice — couleurs, vitesse, formes réagissent au son. Un second joueur module l'image et le sonore simultanément, tandis qu'une pédale étire ou accélère la chute. Alice interroge la frontière entre spectateur et créateur, entre conte classique et performance numérique.",
                 "img"   => "",
                 "cote"  => "gauche"
             ],
@@ -92,7 +93,7 @@ $salles = [
             ],
             [
                 "titre" => "Datura",
-                "desc"  => "En jouant du synthétiseur, transformez en temps réel la chute d'Alice au pays des merveilles. Les notes modifient les formes et couleurs de la chute. Une deuxième personne peut déformer la sonorité tandis qu'une pédale de sustain ralentit ou étire la scène. Une performance collective où la technologie devient le pinceau d'une chute onirique.",
+                "desc"  => "Plongez dans une forêt de séquoias en 3D où votre présence physique devient un bulletin de vote. Entre « Zone Rêve » et « Zone Cauchemar », une webcam analyse la position du public pour transformer l’univers visuel en temps réel. Une œuvre interactive qui explore l'influence collective sur notre environnement numérique.",
                 "img"   => "",
                 "cote"  => "gauche"
             ],

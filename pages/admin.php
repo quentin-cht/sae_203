@@ -131,8 +131,8 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
     </div>
 
     <!-- ── Filtres créneaux ── -->
-    <div class="admin-block">
-        <a href="admin.php" class="admin-creneau <?php echo $creneau_filtre == 0 ? 'admin-creneau--active' : ''; ?>" style="margin-bottom:16px;display:inline-block">Tous les créneaux</a>
+    <div class="admin-block" id="creneaux">
+        <a href="admin.php#creneaux" class="admin-creneau <?php echo $creneau_filtre == 0 ? 'admin-creneau--active' : ''; ?>" style="margin-bottom:16px;display:inline-block">Tous les créneaux</a>
         <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
         <?php
             $c = $tous_creneaux[$i];
@@ -145,7 +145,7 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
             <p class="admin-creneaux-label"><?php echo $lj; ?></p>
             <div class="admin-creneaux">
         <?php endif; ?>
-                <a href="admin.php?creneau=<?php echo $c['id_creneaux']; ?>" class="admin-creneau <?php echo $creneau_filtre == $c['id_creneaux'] ? 'admin-creneau--active' : ''; ?>"><?php echo $lh; ?></a>
+                <a href="admin.php?creneau=<?php echo $c['id_creneaux']; ?>#creneaux" class="admin-creneau <?php echo $creneau_filtre == $c['id_creneaux'] ? 'admin-creneau--active' : ''; ?>"><?php echo $lh; ?></a>
         <?php
             $next_lj = ($i + 1 < count($tous_creneaux)) ? (strtotime($tous_creneaux[$i+1]['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN') : '';
             if ($i == count($tous_creneaux) - 1 || $next_lj != $lj) :
@@ -341,11 +341,6 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
                 <div class="admin-edition-actions">
                     <button type="submit" class="btn-primary">Enregistrer les modifications</button>
                     <button type="button" class="btn-outline" onclick="fermerEdition()">Annuler</button>
-                    <button type="button" class="btn-supprimer" onclick="confirmerSuppression()">Supprimer la réservation</button>
-                    <form method="post" action="admin.php" id="form-supprimer" style="display:none">
-                        <input type="hidden" name="action" value="supprimer">
-                        <input type="hidden" name="id" id="form-supprimer-id">
-                    </form>
                 </div>
             </form>
         </div>

@@ -57,18 +57,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nom'])) {
     }
 
     // Créer une inscription pour chaque salle ajoutée (max 4)
+    $erreurs_places = [];
+
     for ($i = 0; $i < 4; $i++) {
         if (isset($_POST['id_salle_' . $i]) && isset($_POST['id_creneau_' . $i])) {
             $id_salle   = intval($_POST['id_salle_' . $i]);
             $id_creneau = intval($_POST['id_creneau_' . $i]);
             if ($id_salle > 0 && $id_creneau > 0) {
-                mysqli_query($conn, "INSERT INTO inscriptions (nb_personnes, buffet, utilisateurs_id_user, salles_id_salles, creneaux_id_creneaux)
-                                     VALUES ($nb_personnes, $buffet, $id_user, $id_salle, $id_creneau)");
+
+                // Vérifier combien de places sont déjà prises pour cette salle + créneau
+                $res_check = mysqli_query($conn, "SELECT COALESCE(SUM(nb_personnes), 0) AS total
+                                                  FROM inscriptions
+                                                  WHERE salles_id_salles = $id_salle
+                                                  AND creneaux_id_creneaux = $id_creneau");
+                $check = mysqli_fetch_assoc($res_check);
+                $places_prises = intval($check['total']);
+                $places_restantes = 12 - $places_prises;
+
+                if ($nb_personnes > $places_restantes) {
+                    // Récupérer le nom de la salle pour le message d'erreur
+                    $res_nom = mysqli_query($conn, "SELECT nom_salle FROM salles WHERE id_salles = $id_salle");
+                    $nom_salle = mysqli_fetch_assoc($res_nom)['nom_salle'];
+                    if ($places_restantes <= 0) {
+                        $erreurs_places[] = "La salle <strong>$nom_salle</strong> est complète pour ce créneau.";
+                    } else {
+                        $erreurs_places[] = "La salle <strong>$nom_salle</strong> n'a plus que <strong>$places_restantes place(s)</strong> disponible(s) pour ce créneau (vous demandez $nb_personnes).";
+                    }
+                } else {
+                    // Assez de places, on insère
+                    mysqli_query($conn, "INSERT INTO inscriptions (nb_personnes, buffet, utilisateurs_id_user, salles_id_salles, creneaux_id_creneaux)
+                                         VALUES ($nb_personnes, $buffet, $id_user, $id_salle, $id_creneau)");
+                }
             }
         }
     }
 
-    $message = "Inscription confirmée ! Votre code de réservation : <strong>$code_unique</strong> — un email vous sera envoyé.";
+    if (count($erreurs_places) > 0) {
+        $erreur = implode('<br>', $erreurs_places);
+    } else {
+        $message = "Inscription confirmée ! Votre code de réservation : <strong>$code_unique</strong> — un email vous sera envoyé.";
+    }
 }
 
 include '../includes/header.php';
@@ -88,6 +116,11 @@ include '../includes/header.php';
 <div class="inscrip-form" style="max-width:540px;margin:0 auto;">
     <div class="admin-message admin-message--ok"><?php echo $message; ?></div>
     <a href="inscription.php" class="btn-outline" style="display:inline-block;margin-top:16px">Nouvelle réservation</a>
+</div>
+<?php elseif ($erreur != '') : ?>
+<div class="inscrip-form" style="max-width:540px;margin:0 auto;">
+    <div class="auth-error" style="margin-bottom:20px"><?php echo $erreur; ?></div>
+    <a href="inscription.php" class="btn-outline" style="display:inline-block">← Retour au formulaire</a>
 </div>
 <?php else : ?>
 
@@ -509,6 +542,7 @@ function selectionnerSalle(label) {
     var num = getNumBloc(label);
     document.getElementById('hidden_id_salle_' + num).value = idSalles[valeur];
     mettreAJourJauge(num);
+    ajusterStepper();
 }
 
 // Mettre en surbrillance le créneau sélectionné + mettre à jour le champ caché
@@ -524,6 +558,17 @@ function selectionnerCreneau(label) {
     var num = getNumBloc(label);
     document.getElementById('hidden_id_creneau_' + num).value = idCreneaux[valeur];
     mettreAJourJauge(num);
+    ajusterStepper();
+}
+
+// Ajuster la valeur du stepper selon les places restantes
+function ajusterStepper() {
+    var input = document.getElementById('nb_personnes');
+    var maxPlaces = getMaxPlaces();
+    input.max = maxPlaces;
+    if (parseInt(input.value) > maxPlaces) {
+        input.value = maxPlaces;
+    }
 }
 
 // Mettre en surbrillance la catégorie sélectionnée
@@ -563,17 +608,42 @@ function supprimerSalle(idBloc, idBoutonAfficher) {
     document.getElementById('hidden_id_creneau_' + num).value = 0;
 }
 
-// Charger la jauge au démarrage pour le bloc 0 (déjà pré-sélectionné)
+// Charger la jauge et ajuster le stepper au démarrage
 window.onload = function() {
     mettreAJourJauge(0);
+    ajusterStepper();
 };
+
+// Calculer le maximum de places disponibles parmi toutes les salles sélectionnées
+function getMaxPlaces() {
+    var max = 12;
+    for (var num = 0; num < 4; num++) {
+        var champSalle   = document.getElementById('hidden_id_salle_' + num);
+        var champCreneau = document.getElementById('hidden_id_creneau_' + num);
+        if (!champSalle || !champCreneau) continue;
+        var idSalle   = champSalle.value;
+        var idCreneau = champCreneau.value;
+        if (idSalle == 0 || idCreneau == 0) continue;
+        var cle = idSalle + '-' + idCreneau;
+        var prises = placesOccupees[cle] ? placesOccupees[cle] : 0;
+        var restantes = 12 - prises;
+        if (restantes < max) {
+            max = restantes;
+        }
+    }
+    if (max < 0) max = 0;
+    return max;
+}
 
 // Changer le nombre de personnes
 function changerNombre(delta) {
     var input = document.getElementById('nb_personnes');
     var valeur = parseInt(input.value) + delta;
-    if (valeur >= 1 && valeur <= 12) {
+    var maxPlaces = getMaxPlaces();
+    if (valeur >= 1 && valeur <= maxPlaces) {
         input.value = valeur;
     }
+    // Mettre à jour l'attribut max de l'input
+    input.max = maxPlaces;
 }
 </script>
