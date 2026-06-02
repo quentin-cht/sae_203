@@ -12,4 +12,9 @@ if (!$conn) {
 }
 
 mysqli_set_charset($conn, "utf8");
+
+// Protection XSS : échappe les caractères HTML dans les données utilisateur
+function h($texte) {
+    return htmlspecialchars($texte, ENT_QUOTES, 'UTF-8');
+}
 ?>

@@ -159,8 +159,8 @@ if ($email_session != '' && $reference_session != '') {
                 </div>
                 <div class="form-group form-group--full" style="margin-bottom:24px">
                     <label class="form-label" for="reference">Référence de réservation *</label>
-                    <p class="form-hint">Reçue par email lors de votre inscription (ex. ELL-2024-01)</p>
-                    <input type="text" id="reference" name="reference" class="form-input" placeholder="ELL-XXXX-XX" required>
+                    <p class="form-hint">Reçue par email lors de votre inscription (ex. 09e4cc84)</p>
+                    <input type="text" id="reference" name="reference" class="form-input" placeholder="ex. 09e4cc84" required>
                 </div>
                 <button type="submit" class="btn-inscrip">Retrouver ma réservation →</button>
             </form>
@@ -188,15 +188,15 @@ if ($email_session != '' && $reference_session != '') {
             <?php endif; ?>
 
             <div class="resa-recap">
-                <div class="resa-recap__ref">Référence : <strong><?php echo $reservation['reference']; ?></strong></div>
+                <div class="resa-recap__ref">Référence : <strong><?php echo h($reservation['reference']); ?></strong></div>
                 <div class="resa-recap__grid">
                     <div class="resa-recap__item">
                         <span class="resa-recap__label">Nom</span>
-                        <span><?php echo $reservation['prenom']; ?> <?php echo $reservation['nom']; ?></span>
+                        <span><?php echo h($reservation['prenom']); ?> <?php echo h($reservation['nom']); ?></span>
                     </div>
                     <div class="resa-recap__item">
                         <span class="resa-recap__label">Email</span>
-                        <span><?php echo $reservation['email']; ?></span>
+                        <span><?php echo h($reservation['email']); ?></span>
                     </div>
                     <div class="resa-recap__item">
                         <span class="resa-recap__label">Personnes</span>
@@ -214,8 +214,8 @@ if ($email_session != '' && $reference_session != '') {
             <?php $rs = $reservations_salles[$i]; ?>
             <div class="resa-ligne" id="resa-ligne-<?php echo $rs['id_inscription']; ?>">
                 <div class="resa-ligne__infos">
-                    <div class="resa-ligne__salle"><?php echo $rs['salle']; ?></div>
-                    <div class="resa-ligne__creneau"><?php echo $rs['creneau']; ?></div>
+                    <div class="resa-ligne__salle"><?php echo h($rs['salle']); ?></div>
+                    <div class="resa-ligne__creneau"><?php echo h($rs['creneau']); ?></div>
                 </div>
                 <div class="resa-ligne__actions">
                     <button type="button" class="btn-outline btn-outline--small"
@@ -226,8 +226,8 @@ if ($email_session != '' && $reference_session != '') {
                         onsubmit="return confirm('Supprimer cette réservation ?')">
                         <input type="hidden" name="action" value="supprimer_inscription">
                         <input type="hidden" name="id_inscription" value="<?php echo $rs['id_inscription']; ?>">
-                        <input type="hidden" name="reference" value="<?php echo $reservation['reference']; ?>">
-                        <input type="hidden" name="email_hidden" value="<?php echo $reservation['email']; ?>">
+                        <input type="hidden" name="reference" value="<?php echo h($reservation['reference']); ?>">
+                        <input type="hidden" name="email_hidden" value="<?php echo h($reservation['email']); ?>">
                         <button type="submit" class="btn-supprimer-inline">Supprimer</button>
                     </form>
                 </div>
@@ -237,8 +237,8 @@ if ($email_session != '' && $reference_session != '') {
                     <form method="post" action="ma-reservation.php">
                         <input type="hidden" name="action" value="modifier_inscription">
                         <input type="hidden" name="id_inscription" value="<?php echo $rs['id_inscription']; ?>">
-                        <input type="hidden" name="reference" value="<?php echo $reservation['reference']; ?>">
-                        <input type="hidden" name="email_hidden" value="<?php echo $reservation['email']; ?>">
+                        <input type="hidden" name="reference" value="<?php echo h($reservation['reference']); ?>">
+                        <input type="hidden" name="email_hidden" value="<?php echo h($reservation['email']); ?>">
                         <div class="resa-modif-form__champs">
                             <div class="form-group">
                                 <label class="form-label">Salle</label>
@@ -246,7 +246,7 @@ if ($email_session != '' && $reference_session != '') {
                                     <?php for ($j = 0; $j < count($toutes_salles); $j++) : ?>
                                     <option value="<?php echo $toutes_salles[$j]['id_salles']; ?>"
                                         <?php echo ($toutes_salles[$j]['id_salles'] == $rs['id_salle']) ? 'selected' : ''; ?>>
-                                        <?php echo $toutes_salles[$j]['nom_salle']; ?>
+                                        <?php echo h($toutes_salles[$j]['nom_salle']); ?>
                                     </option>
                                     <?php endfor; ?>
                                 </select>
@@ -283,8 +283,8 @@ if ($email_session != '' && $reference_session != '') {
                 <form method="post" action="ma-reservation.php" style="display:inline"
                     onsubmit="return confirm('Annuler TOUTES vos réservations ? Cette action est irréversible.')">
                     <input type="hidden" name="action" value="annuler">
-                    <input type="hidden" name="reference" value="<?php echo $reservation['reference']; ?>">
-                    <input type="hidden" name="email_hidden" value="<?php echo $reservation['email']; ?>">
+                    <input type="hidden" name="reference" value="<?php echo h($reservation['reference']); ?>">
+                    <input type="hidden" name="email_hidden" value="<?php echo h($reservation['email']); ?>">
                     <button type="submit" class="btn-supprimer-inline">Annuler toutes mes réservations</button>
                 </form>
             </div>

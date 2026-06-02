@@ -7,13 +7,13 @@ $message = '';
 $erreur  = '';
 
 // Pré-remplissage si on vient de "Modifier ma réservation"
-$prefill_nom     = isset($_GET['nom'])      ? htmlspecialchars($_GET['nom'])      : '';
-$prefill_prenom  = isset($_GET['prenom'])   ? htmlspecialchars($_GET['prenom'])   : '';
-$prefill_email   = isset($_GET['email'])    ? htmlspecialchars($_GET['email'])    : '';
-$prefill_places  = isset($_GET['places'])   ? intval($_GET['places'])             : 1;
-$prefill_ref     = isset($_GET['reference'])? htmlspecialchars($_GET['reference']): '';
-$prefill_profil   = isset($_GET['profil'])    ? htmlspecialchars($_GET['profil'])  : '';
-$prefill_buffet   = isset($_GET['buffet'])   ? intval($_GET['buffet'])             : 1;
+$prefill_nom     = isset($_GET['nom'])       ? h($_GET['nom'])       : '';
+$prefill_prenom  = isset($_GET['prenom'])    ? h($_GET['prenom'])    : '';
+$prefill_email   = isset($_GET['email'])     ? h($_GET['email'])     : '';
+$prefill_places  = isset($_GET['places'])    ? intval($_GET['places'])             : 1;
+$prefill_ref     = isset($_GET['reference']) ? h($_GET['reference']) : '';
+$prefill_profil  = isset($_GET['profil'])    ? h($_GET['profil'])    : '';
+$prefill_buffet  = isset($_GET['buffet'])    ? intval($_GET['buffet'])             : 1;
 $prefill_id_salle = isset($_GET['id_salle']) ? intval($_GET['id_salle'])           : 0;
 $prefill_id_cren  = isset($_GET['id_creneau'])? intval($_GET['id_creneau'])        : 0;
 
@@ -135,46 +135,46 @@ include '../includes/header.php';
         <div class="resa-block" id="resa-0">
             <p class="resa-block__label">Salle 1</p>
             <div class="salle-grid">
-                <label class="salle-radio <?php echo $prefill_val_salle == 'plateau' || $prefill_val_salle == '' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this)">
+                <label class="salle-radio <?php echo $prefill_val_salle == 'plateau' || $prefill_val_salle == '' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this, 0)">
                     <input type="radio" name="salle[0]" value="plateau" <?php echo $prefill_val_salle == 'plateau' || $prefill_val_salle == '' ? 'checked' : ''; ?>> Societ-e (021)
                 </label>
-                <label class="salle-radio <?php echo $prefill_val_salle == 'salle001' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this)">
+                <label class="salle-radio <?php echo $prefill_val_salle == 'salle001' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this, 0)">
                     <input type="radio" name="salle[0]" value="salle001" <?php echo $prefill_val_salle == 'salle001' ? 'checked' : ''; ?>> Horizon (001)
                 </label>
-                <label class="salle-radio <?php echo $prefill_val_salle == 'salle002' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this)">
+                <label class="salle-radio <?php echo $prefill_val_salle == 'salle002' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this, 0)">
                     <input type="radio" name="salle[0]" value="salle002" <?php echo $prefill_val_salle == 'salle002' ? 'checked' : ''; ?>> L'Envers du Décor (002)
                 </label>
-                <label class="salle-radio <?php echo $prefill_val_salle == 'salle005' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this)">
+                <label class="salle-radio <?php echo $prefill_val_salle == 'salle005' ? 'salle-radio--active' : ''; ?>" onclick="selectionnerSalle(this, 0)">
                     <input type="radio" name="salle[0]" value="salle005" <?php echo $prefill_val_salle == 'salle005' ? 'checked' : ''; ?>> La Pépinière (005)
                 </label>
             </div>
             <?php $est_vendredi = strpos($prefill_val_cren, 'vendredi') !== false; ?>
             <div class="jour-tabs">
-                <button type="button" class="jour-tab <?php echo !$est_vendredi ? 'jour-tab--active' : ''; ?>" onclick="switchJour('jeudi-0', this)">Jeudi 18 juin</button>
-                <button type="button" class="jour-tab <?php echo $est_vendredi ? 'jour-tab--active' : ''; ?>" onclick="switchJour('vendredi-0', this)">Vendredi 19 juin</button>
+                <button type="button" class="jour-tab <?php echo !$est_vendredi ? 'jour-tab--active' : ''; ?>" onclick="switchJour('jeudi-0', 0, this)">Jeudi 18 juin</button>
+                <button type="button" class="jour-tab <?php echo $est_vendredi ? 'jour-tab--active' : ''; ?>" onclick="switchJour('vendredi-0', 0, this)">Vendredi 19 juin</button>
             </div>
             <div id="jeudi-0" <?php echo $est_vendredi ? 'style="display:none"' : ''; ?>>
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-15h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-15h00" <?php echo $prefill_val_cren == 'jeudi-15h00' ? 'checked' : ''; ?>> 15h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-15h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-15h30" <?php echo $prefill_val_cren == 'jeudi-15h30' ? 'checked' : ''; ?>> 15h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-16h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-16h00" <?php echo $prefill_val_cren == 'jeudi-16h00' ? 'checked' : ''; ?>> 16h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-16h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-16h30" <?php echo $prefill_val_cren == 'jeudi-16h30' ? 'checked' : ''; ?>> 16h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-17h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-17h00" <?php echo $prefill_val_cren == 'jeudi-17h00' ? 'checked' : ''; ?>> 17h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-17h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-17h30" <?php echo $prefill_val_cren == 'jeudi-17h30' ? 'checked' : ''; ?>> 17h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-18h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-18h00" <?php echo $prefill_val_cren == 'jeudi-18h00' ? 'checked' : ''; ?>> 18h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-19h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-19h00" <?php echo $prefill_val_cren == 'jeudi-19h00' ? 'checked' : ''; ?>> 19h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-19h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-19h30" <?php echo $prefill_val_cren == 'jeudi-19h30' ? 'checked' : ''; ?>> 19h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-20h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="jeudi-20h00" <?php echo $prefill_val_cren == 'jeudi-20h00' ? 'checked' : ''; ?>> 20h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-15h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-15h00" <?php echo $prefill_val_cren == 'jeudi-15h00' ? 'checked' : ''; ?>> 15h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-15h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-15h30" <?php echo $prefill_val_cren == 'jeudi-15h30' ? 'checked' : ''; ?>> 15h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-16h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-16h00" <?php echo $prefill_val_cren == 'jeudi-16h00' ? 'checked' : ''; ?>> 16h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-16h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-16h30" <?php echo $prefill_val_cren == 'jeudi-16h30' ? 'checked' : ''; ?>> 16h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-17h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-17h00" <?php echo $prefill_val_cren == 'jeudi-17h00' ? 'checked' : ''; ?>> 17h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-17h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-17h30" <?php echo $prefill_val_cren == 'jeudi-17h30' ? 'checked' : ''; ?>> 17h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-18h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-18h00" <?php echo $prefill_val_cren == 'jeudi-18h00' ? 'checked' : ''; ?>> 18h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-19h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-19h00" <?php echo $prefill_val_cren == 'jeudi-19h00' ? 'checked' : ''; ?>> 19h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-19h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-19h30" <?php echo $prefill_val_cren == 'jeudi-19h30' ? 'checked' : ''; ?>> 19h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'jeudi-20h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="jeudi-20h00" <?php echo $prefill_val_cren == 'jeudi-20h00' ? 'checked' : ''; ?>> 20h00</label>
                 </div>
             </div>
             <div id="vendredi-0" <?php echo !$est_vendredi ? 'style="display:none"' : ''; ?>>
                 <p class="creneaux-date">Vendredi 19 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-9h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="vendredi-9h30" <?php echo $prefill_val_cren == 'vendredi-9h30' ? 'checked' : ''; ?>> 9h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-10h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="vendredi-10h00" <?php echo $prefill_val_cren == 'vendredi-10h00' ? 'checked' : ''; ?>> 10h00</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-10h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="vendredi-10h30" <?php echo $prefill_val_cren == 'vendredi-10h30' ? 'checked' : ''; ?>> 10h30</label>
-                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-11h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[0]" value="vendredi-11h00" <?php echo $prefill_val_cren == 'vendredi-11h00' ? 'checked' : ''; ?>> 11h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-9h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="vendredi-9h30" <?php echo $prefill_val_cren == 'vendredi-9h30' ? 'checked' : ''; ?>> 9h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-10h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="vendredi-10h00" <?php echo $prefill_val_cren == 'vendredi-10h00' ? 'checked' : ''; ?>> 10h00</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-10h30' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="vendredi-10h30" <?php echo $prefill_val_cren == 'vendredi-10h30' ? 'checked' : ''; ?>> 10h30</label>
+                    <label class="creneau <?php echo $prefill_val_cren == 'vendredi-11h00' ? 'creneau--active' : ''; ?>" onclick="selectionnerCreneau(this, 0)"><input type="radio" name="creneau[0]" value="vendredi-11h00" <?php echo $prefill_val_cren == 'vendredi-11h00' ? 'checked' : ''; ?>> 11h00</label>
                 </div>
             </div>
             <div class="jauge-banner" id="jauge-0">Places restantes : <strong>… / 12</strong> — 12 personnes maximum par salle</div>
@@ -189,45 +189,45 @@ include '../includes/header.php';
                 <button type="button" class="resa-remove" onclick="supprimerSalle('resa-1', 'btn-add-1')">✕</button>
             </div>
             <div class="salle-grid">
-                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this)">
+                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this, 1)">
                     <input type="radio" name="salle[1]" value="plateau" checked> Societ-e (021)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 1)">
                     <input type="radio" name="salle[1]" value="salle001"> Horizon (001)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 1)">
                     <input type="radio" name="salle[1]" value="salle002"> L'Envers du Décor (002)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 1)">
                     <input type="radio" name="salle[1]" value="salle005"> La Pépinière (005)
                 </label>
             </div>
             <div class="jour-tabs">
-                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-1', this)">Jeudi 18 juin</button>
-                <button type="button" class="jour-tab" onclick="switchJour('vendredi-1', this)">Vendredi 19 juin</button>
+                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-1', 1, this)">Jeudi 18 juin</button>
+                <button type="button" class="jour-tab" onclick="switchJour('vendredi-1', 1, this)">Vendredi 19 juin</button>
             </div>
             <div id="jeudi-1">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-15h00" checked> 15h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-15h30"> 15h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-16h00"> 16h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-16h30"> 16h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-17h00"> 17h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-17h30"> 17h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-18h00"> 18h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-19h00"> 19h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-19h30"> 19h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="jeudi-20h00"> 20h00</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-17h30"> 17h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-18h00"> 18h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-19h00"> 19h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-19h30"> 19h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="jeudi-20h00"> 20h00</label>
                 </div>
             </div>
             <div id="vendredi-1" style="display:none">
                 <p class="creneaux-date">Vendredi 19 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="vendredi-9h30"> 9h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="vendredi-10h00"> 10h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="vendredi-10h30"> 10h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[1]" value="vendredi-11h00"> 11h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="vendredi-9h30"> 9h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="vendredi-10h00"> 10h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="vendredi-10h30"> 10h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 1)"><input type="radio" name="creneau[1]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
             <div class="jauge-banner" id="jauge-1">Places restantes : <strong>… / 12</strong> — 12 personnes maximum par salle</div>
@@ -242,45 +242,45 @@ include '../includes/header.php';
                 <button type="button" class="resa-remove" onclick="supprimerSalle('resa-2', 'btn-add-2')">✕</button>
             </div>
             <div class="salle-grid">
-                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this)">
+                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this, 2)">
                     <input type="radio" name="salle[2]" value="plateau" checked> Societ-e (021)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 2)">
                     <input type="radio" name="salle[2]" value="salle001"> Horizon (001)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 2)">
                     <input type="radio" name="salle[2]" value="salle002"> L'Envers du Décor (002)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 2)">
                     <input type="radio" name="salle[2]" value="salle005"> La Pépinière (005)
                 </label>
             </div>
             <div class="jour-tabs">
-                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-2', this)">Jeudi 18 juin</button>
-                <button type="button" class="jour-tab" onclick="switchJour('vendredi-2', this)">Vendredi 19 juin</button>
+                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-2', 2, this)">Jeudi 18 juin</button>
+                <button type="button" class="jour-tab" onclick="switchJour('vendredi-2', 2, this)">Vendredi 19 juin</button>
             </div>
             <div id="jeudi-2">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-15h00" checked> 15h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-15h30"> 15h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-16h00"> 16h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-16h30"> 16h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-17h00"> 17h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-17h30"> 17h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-18h00"> 18h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-19h00"> 19h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-19h30"> 19h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="jeudi-20h00"> 20h00</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-17h30"> 17h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-18h00"> 18h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-19h00"> 19h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-19h30"> 19h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="jeudi-20h00"> 20h00</label>
                 </div>
             </div>
             <div id="vendredi-2" style="display:none">
                 <p class="creneaux-date">Vendredi 19 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="vendredi-9h30"> 9h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="vendredi-10h00"> 10h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="vendredi-10h30"> 10h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[2]" value="vendredi-11h00"> 11h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="vendredi-9h30"> 9h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="vendredi-10h00"> 10h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="vendredi-10h30"> 10h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 2)"><input type="radio" name="creneau[2]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
             <div class="jauge-banner" id="jauge-2">Places restantes : <strong>… / 12</strong> — 12 personnes maximum par salle</div>
@@ -295,45 +295,45 @@ include '../includes/header.php';
                 <button type="button" class="resa-remove" onclick="supprimerSalle('resa-3', 'btn-add-3')">✕</button>
             </div>
             <div class="salle-grid">
-                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this)">
+                <label class="salle-radio salle-radio--active" onclick="selectionnerSalle(this, 3)">
                     <input type="radio" name="salle[3]" value="plateau" checked> Societ-e (021)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 3)">
                     <input type="radio" name="salle[3]" value="salle001"> Horizon (001)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 3)">
                     <input type="radio" name="salle[3]" value="salle002"> L'Envers du Décor (002)
                 </label>
-                <label class="salle-radio" onclick="selectionnerSalle(this)">
+                <label class="salle-radio" onclick="selectionnerSalle(this, 3)">
                     <input type="radio" name="salle[3]" value="salle005"> La Pépinière (005)
                 </label>
             </div>
             <div class="jour-tabs">
-                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-3', this)">Jeudi 18 juin</button>
-                <button type="button" class="jour-tab" onclick="switchJour('vendredi-3', this)">Vendredi 19 juin</button>
+                <button type="button" class="jour-tab jour-tab--active" onclick="switchJour('jeudi-3', 3, this)">Jeudi 18 juin</button>
+                <button type="button" class="jour-tab" onclick="switchJour('vendredi-3', 3, this)">Vendredi 19 juin</button>
             </div>
             <div id="jeudi-3">
                 <p class="creneaux-date">Jeudi 18 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-15h00" checked> 15h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-15h30"> 15h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-16h00"> 16h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-16h30"> 16h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-17h00"> 17h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-17h30"> 17h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-18h00"> 18h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-19h00"> 19h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-19h30"> 19h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="jeudi-20h00"> 20h00</label>
+                    <label class="creneau creneau--active" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-15h00" checked> 15h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-15h30"> 15h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-16h00"> 16h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-16h30"> 16h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-17h00"> 17h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-17h30"> 17h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-18h00"> 18h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-19h00"> 19h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-19h30"> 19h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="jeudi-20h00"> 20h00</label>
                 </div>
             </div>
             <div id="vendredi-3" style="display:none">
                 <p class="creneaux-date">Vendredi 19 juin 2026</p>
                 <div class="creneaux-list">
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="vendredi-9h30"> 9h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="vendredi-10h00"> 10h00</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="vendredi-10h30"> 10h30</label>
-                    <label class="creneau" onclick="selectionnerCreneau(this)"><input type="radio" name="creneau[3]" value="vendredi-11h00"> 11h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="vendredi-9h30"> 9h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="vendredi-10h00"> 10h00</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="vendredi-10h30"> 10h30</label>
+                    <label class="creneau" onclick="selectionnerCreneau(this, 3)"><input type="radio" name="creneau[3]" value="vendredi-11h00"> 11h00</label>
                 </div>
             </div>
             <div class="jauge-banner" id="jauge-3">Places restantes : <strong>… / 12</strong> — 12 personnes maximum par salle</div>
@@ -403,12 +403,6 @@ include '../includes/header.php';
             </div>
         </label>
 
-        <div class="form-group form-group--full">
-            <label class="form-label" for="referent">Contact référent·e inscriptions</label>
-            <p class="form-hint">Pour tout problème ou cas particulier, contactez le·la référent·e de votre agence / TP.</p>
-            <input type="text" id="referent" name="referent" class="form-input" placeholder="Ex. nom.prénom@univ-smb.fr">
-        </div>
-
         <!-- Champs cachés pour envoyer les IDs BDD -->
         <input type="hidden" name="id_salle_0" id="hidden_id_salle_0" value="<?php echo $prefill_id_salle > 0 ? $prefill_id_salle : 1; ?>">
         <input type="hidden" name="id_creneau_0" id="hidden_id_creneau_0" value="<?php echo $prefill_id_cren > 0 ? $prefill_id_cren : 1; ?>">
@@ -438,34 +432,8 @@ while ($p = mysqli_fetch_assoc($res_places)) {
 </script>
 
 <script>
-// Changer le jour (jeudi / vendredi)
-function switchJour(idGroupe, bouton) {
-    var bloc = bouton.closest('.resa-block');
-    var groupes = bloc.querySelectorAll('[id^="jeudi-"], [id^="vendredi-"]');
-    for (var i = 0; i < groupes.length; i++) {
-        groupes[i].style.display = 'none';
-    }
-    document.getElementById(idGroupe).style.display = 'block';
-
-    var tabs = bouton.closest('.jour-tabs').querySelectorAll('.jour-tab');
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove('jour-tab--active');
-    }
-    bouton.classList.add('jour-tab--active');
-
-    // Cacher le buffet si vendredi est sélectionné
-    var buffet = document.getElementById('buffet-option');
-    if (buffet) {
-        if (idGroupe.indexOf('vendredi') !== -1) {
-            buffet.style.display = 'none';
-        } else {
-            var categorie = document.querySelector('input[name="categorie"]:checked');
-            if (categorie && categorie.value != 'etudiant_mmi') {
-                buffet.style.display = 'flex';
-            }
-        }
-    }
-}
+// Numéro du bloc actuellement utilisé (mis à jour à chaque clic)
+var blocActuel = 0;
 
 // Correspondance valeur salle → id BDD
 var idSalles = {
@@ -493,17 +461,38 @@ var idCreneaux = {
     'vendredi-11h00': 14
 };
 
-// Trouver le numéro du bloc (0, 1, 2, 3)
-function getNumBloc(element) {
-    var bloc = element.closest('.resa-block');
-    if (!bloc) return 0;
-    var id = bloc.id; // ex: "resa-0", "resa-1"
-    return parseInt(id.replace('resa-', ''));
+// Changer le jour (jeudi / vendredi)
+function switchJour(idGroupe, num, bouton) {
+    var idJeudi    = 'jeudi-'    + num;
+    var idVendredi = 'vendredi-' + num;
+
+    document.getElementById(idJeudi).style.display    = 'none';
+    document.getElementById(idVendredi).style.display = 'none';
+    document.getElementById(idGroupe).style.display   = 'block';
+
+    var tabs = document.querySelectorAll('#resa-' + num + ' .jour-tab');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('jour-tab--active');
+    }
+    bouton.classList.add('jour-tab--active');
+
+    // Cacher le buffet si vendredi est sélectionné
+    var buffet = document.getElementById('buffet-option');
+    if (buffet) {
+        if (idGroupe.indexOf('vendredi') !== -1) {
+            buffet.style.display = 'none';
+        } else {
+            var categorie = document.querySelector('input[name="categorie"]:checked');
+            if (categorie && categorie.value != 'etudiant_mmi') {
+                buffet.style.display = 'flex';
+            }
+        }
+    }
 }
 
 // Mettre à jour la jauge à partir des données déjà chargées
 function mettreAJourJauge(num) {
-    var idSalle   = document.getElementById('hidden_id_salle_' + num).value;
+    var idSalle   = document.getElementById('hidden_id_salle_'   + num).value;
     var idCreneau = document.getElementById('hidden_id_creneau_' + num).value;
     var jauge     = document.getElementById('jauge-' + num);
     if (!jauge) return;
@@ -530,32 +519,30 @@ function mettreAJourJauge(num) {
 }
 
 // Mettre en surbrillance la salle sélectionnée + mettre à jour le champ caché
-function selectionnerSalle(label) {
-    var grille = label.closest('.salle-grid');
-    var labels = grille.querySelectorAll('.salle-radio');
+function selectionnerSalle(label, num) {
+    blocActuel = num;
+    var labels = document.querySelectorAll('#resa-' + num + ' .salle-radio');
     for (var i = 0; i < labels.length; i++) {
         labels[i].classList.remove('salle-radio--active');
     }
     label.classList.add('salle-radio--active');
 
     var valeur = label.querySelector('input').value;
-    var num = getNumBloc(label);
     document.getElementById('hidden_id_salle_' + num).value = idSalles[valeur];
     mettreAJourJauge(num);
     ajusterStepper();
 }
 
 // Mettre en surbrillance le créneau sélectionné + mettre à jour le champ caché
-function selectionnerCreneau(label) {
-    var liste = label.closest('.creneaux-list');
-    var labels = liste.querySelectorAll('.creneau');
+function selectionnerCreneau(label, num) {
+    blocActuel = num;
+    var labels = document.querySelectorAll('#resa-' + num + ' .creneau');
     for (var i = 0; i < labels.length; i++) {
         labels[i].classList.remove('creneau--active');
     }
     label.classList.add('creneau--active');
 
     var valeur = label.querySelector('input').value;
-    var num = getNumBloc(label);
     document.getElementById('hidden_id_creneau_' + num).value = idCreneaux[valeur];
     mettreAJourJauge(num);
     ajusterStepper();
@@ -604,21 +591,15 @@ function supprimerSalle(idBloc, idBoutonAfficher) {
     document.getElementById(idBloc).style.display = 'none';
     document.getElementById(idBoutonAfficher).style.display = 'inline-flex';
     var num = idBloc.replace('resa-', '');
-    document.getElementById('hidden_id_salle_' + num).value = 0;
+    document.getElementById('hidden_id_salle_'   + num).value = 0;
     document.getElementById('hidden_id_creneau_' + num).value = 0;
 }
-
-// Charger la jauge et ajuster le stepper au démarrage
-window.onload = function() {
-    mettreAJourJauge(0);
-    ajusterStepper();
-};
 
 // Calculer le maximum de places disponibles parmi toutes les salles sélectionnées
 function getMaxPlaces() {
     var max = 12;
     for (var num = 0; num < 4; num++) {
-        var champSalle   = document.getElementById('hidden_id_salle_' + num);
+        var champSalle   = document.getElementById('hidden_id_salle_'   + num);
         var champCreneau = document.getElementById('hidden_id_creneau_' + num);
         if (!champSalle || !champCreneau) continue;
         var idSalle   = champSalle.value;
@@ -646,4 +627,8 @@ function changerNombre(delta) {
     // Mettre à jour l'attribut max de l'input
     input.max = maxPlaces;
 }
+
+// Initialisation au chargement de la page
+mettreAJourJauge(0);
+ajusterStepper();
 </script>

@@ -186,8 +186,8 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
                 $plein   = $creneau_filtre > 0 && $total >= 12;
             ?>
             <div class="admin-salle-card <?php echo $plein ? 'admin-salle-card--plein' : ''; ?>">
-                <span class="admin-salle-badge <?php echo $plein ? 'admin-salle-badge--plein' : ''; ?>"><?php echo $salle['nom_salle']; ?></span>
-                <p class="admin-salle-oeuvres"><?php echo $oeuvres; ?></p>
+                <span class="admin-salle-badge <?php echo $plein ? 'admin-salle-badge--plein' : ''; ?>"><?php echo h($salle['nom_salle']); ?></span>
+                <p class="admin-salle-oeuvres"><?php echo h($oeuvres); ?></p>
                 <p class="admin-salle-dispo">
                     <strong><?php echo $total; ?></strong>
                     <?php if ($creneau_filtre > 0) : ?>
@@ -262,14 +262,14 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
                 ?>
                 <tr>
                     <td class="admin-table__id"><?php echo $r['id_inscriptions']; ?></td>
-                    <td><?php echo $r['nom']; ?></td>
-                    <td><?php echo $r['prenom']; ?></td>
-                    <td style="font-size:11px;color:#666"><?php echo $r['email']; ?></td>
-                    <td><span class="admin-salle-tag"><?php echo $r['nom_salle']; ?></span></td>
+                    <td><?php echo h($r['nom']); ?></td>
+                    <td><?php echo h($r['prenom']); ?></td>
+                    <td style="font-size:11px;color:#666"><?php echo h($r['email']); ?></td>
+                    <td><span class="admin-salle-tag"><?php echo h($r['nom_salle']); ?></span></td>
                     <td><?php echo $label_heure . ' — ' . $label_jour; ?></td>
                     <td><?php echo $r['nb_personnes']; ?></td>
                     <td class="admin-table__actions">
-                        <button class="btn-modifier" onclick="chargerEdition(<?php echo $r['id_inscriptions']; ?>, '<?php echo addslashes($r['nom']); ?>', '<?php echo addslashes($r['prenom']); ?>', <?php echo $r['id_salles']; ?>, <?php echo $r['id_creneaux']; ?>, <?php echo $r['nb_personnes']; ?>)">Modifier</button>
+                        <button class="btn-modifier" onclick="chargerEdition(<?php echo $r['id_inscriptions']; ?>, '<?php echo addslashes(h($r['nom'])); ?>', '<?php echo addslashes(h($r['prenom'])); ?>', <?php echo $r['id_salles']; ?>, <?php echo $r['id_creneaux']; ?>, <?php echo $r['nb_personnes']; ?>)">Modifier</button>
                         <form method="post" action="admin.php" style="display:inline" onsubmit="return confirm('Supprimer la réservation de <?php echo $r['nom']; ?> <?php echo $r['prenom']; ?> ?')">
                             <input type="hidden" name="action" value="supprimer">
                             <input type="hidden" name="id" value="<?php echo $r['id_inscriptions']; ?>">
@@ -312,7 +312,7 @@ while ($row = mysqli_fetch_assoc($res_salles)) {
                         <label class="form-label">Salle</label>
                         <select name="id_salle" id="edit-salle" class="admin-input">
                             <?php for ($i = 0; $i < count($toutes_salles); $i++) : ?>
-                            <option value="<?php echo $toutes_salles[$i]['id_salles']; ?>"><?php echo $toutes_salles[$i]['nom_salle']; ?></option>
+                            <option value="<?php echo $toutes_salles[$i]['id_salles']; ?>"><?php echo h($toutes_salles[$i]['nom_salle']); ?></option>
                             <?php endfor; ?>
                         </select>
                     </div>
