@@ -87,7 +87,7 @@ include '../includes/header.php';
             ["num" => "Salle 021", "nom" => "Societ-e", "oeuvres" => ["Community", "Distorsion"], "img" => ""],
             ["num" => "Salle 001", "nom" => "Horizon", "oeuvres" => ["Bon Profil", "Antithèse", "Beauté hors du cadre"], "img" => ""],
             ["num" => "Salle 002", "nom" => "L'Envers du Décor", "oeuvres" => ["Tapis Rouge", "En Direct", "AD-HD"], "img" => ""],
-            ["num" => "Salle 005", "nom" => "La Pépinière", "oeuvres" => ["Lotus", "E-biscus", "La chute d'Alice", "Œuvre 4"], "img" => ""],
+            ["num" => "Salle 005", "nom" => "La Pépinière", "oeuvres" => ["Lotus", "E-biscus", "Datura"], "img" => ""],
         ];
         foreach ($salles as $salle) :
         ?>

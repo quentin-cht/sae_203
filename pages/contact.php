@@ -4,10 +4,10 @@ $rootPath = "../";
 include '../includes/header.php';
 
 $referents = [
-    ["nom" => "Référent·e Salle 001", "email" => "referent1@etudiant.univ-smb.fr"],
-    ["nom" => "Référent·e Salle 002", "email" => "referent2@etudiant.univ-smb.fr"],
-    ["nom" => "Référent·e Salle 005", "email" => "referent3@etudiant.univ-smb.fr"],
-    ["nom" => "Référent·e Plateau Régie", "email" => "referent4@etudiant.univ-smb.fr"],
+    ["nom" => "Societ-e (021)", "email" => "referent1@etudiant.univ-smb.fr"],
+    ["nom" => "Horizon (001)", "email" => "referent2@etudiant.univ-smb.fr"],
+    ["nom" => "L'Envers du Décor (002)", "email" => "referent3@etudiant.univ-smb.fr"],
+    ["nom" => "La Pépinière (005)", "email" => "referent4@etudiant.univ-smb.fr"],
 ];
 ?>
 
@@ -25,7 +25,6 @@ $referents = [
     <div class="contact-cards-row">
         <!-- Responsable du projet -->
         <div class="contact-card contact-card--main">
-            <div class="contact-card__avatar"></div>
             <div class="contact-card__info">
                 <p class="contact-card__role">Responsable du projet</p>
                 <h2 class="contact-card__name">François Piranda</h2>
@@ -37,7 +36,6 @@ $referents = [
         <!-- Référent·e·s agences -->
         <?php foreach ($referents as $ref) : ?>
         <div class="contact-card contact-card--ref">
-            <div class="contact-card__avatar contact-card__avatar--sm"></div>
             <div class="contact-card__info">
                 <p class="contact-card__role">Référent·e inscriptions</p>
                 <h3 class="contact-card__name"><?php echo $ref['nom']; ?></h3>

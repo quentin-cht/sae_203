@@ -7,38 +7,95 @@ if (!isset($_SESSION['connecte']) || $_SESSION['connecte'] != true || $_SESSION[
     exit();
 }
 
+include '../includes/connexion_bdd.php';
+
+// Oeuvres par salle (non stockées en BDD)
+$oeuvres_salles = [
+    1 => "Community · Distorsion",
+    2 => "Bon Profil · Antithèse · Beauté hors du cadre",
+    3 => "Tapis Rouge · En Direct · AD-HD",
+    4 => "Lotus · E-biscus · Datura"
+];
+
 // Traitement suppression
 if (isset($_POST['action']) && $_POST['action'] == 'supprimer' && isset($_POST['id'])) {
-    // Quand la BDD sera connectée : DELETE FROM reservations WHERE id = $_POST['id']
+    $id = intval($_POST['id']);
+    mysqli_query($conn, "DELETE FROM inscriptions WHERE id_inscriptions = $id");
     header('Location: admin.php?message=supprime');
     exit();
 }
 
 // Traitement modification
 if (isset($_POST['action']) && $_POST['action'] == 'modifier') {
-    // Quand la BDD sera connectée : UPDATE reservations SET ...
+    $id         = intval($_POST['id']);
+    $id_salle   = intval($_POST['id_salle']);
+    $id_creneau = intval($_POST['id_creneau']);
+    $places     = intval($_POST['places']);
+    mysqli_query($conn, "UPDATE inscriptions SET salles_id_salles = $id_salle, creneaux_id_creneaux = $id_creneau, nb_personnes = $places WHERE id_inscriptions = $id");
     header('Location: admin.php?message=modifie');
     exit();
 }
 
-// Données fictives en attendant la BDD
-$reservations = [
-    ["id" => "01", "nom" => "Martin",  "prenom" => "Sophie", "salle" => "Plateau Régie", "creneau" => "18h00", "places" => 2, "statut" => "confirme"],
-    ["id" => "02", "nom" => "Dupont",  "prenom" => "Lea",    "salle" => "Salle 001",     "creneau" => "19h00", "places" => 1, "statut" => "confirme"],
-    ["id" => "03", "nom" => "Bernard", "prenom" => "Theo",   "salle" => "Salle 002",     "creneau" => "17h30", "places" => 4, "statut" => "confirme"],
-    ["id" => "04", "nom" => "Moreau",  "prenom" => "Emma",   "salle" => "Salle 005",     "creneau" => "20h00", "places" => 3, "statut" => "confirme"],
-    ["id" => "05", "nom" => "Laurent", "prenom" => "Hugo",   "salle" => "Plateau Régie", "creneau" => "19h30", "places" => 2, "statut" => "annule"],
-    ["id" => "06", "nom" => "Simon",   "prenom" => "Jade",   "salle" => "Salle 001",     "creneau" => "10h00", "places" => 1, "statut" => "confirme"],
-    ["id" => "07", "nom" => "Michel",  "prenom" => "Luca",   "salle" => "Salle 002",     "creneau" => "9h30",  "places" => 4, "statut" => "confirme"],
-    ["id" => "08", "nom" => "Garcia",  "prenom" => "Ines",   "salle" => "Salle 005",     "creneau" => "10h30", "places" => 2, "statut" => "confirme"],
-];
+// Filtres de recherche
+$where = "1=1";
+if (isset($_GET['nom'])    && $_GET['nom']    != '') $where .= " AND u.nom    LIKE '%" . mysqli_real_escape_string($conn, $_GET['nom'])    . "%'";
+if (isset($_GET['prenom']) && $_GET['prenom'] != '') $where .= " AND u.prenom LIKE '%" . mysqli_real_escape_string($conn, $_GET['prenom']) . "%'";
+if (isset($_GET['email'])  && $_GET['email']  != '') $where .= " AND u.email  LIKE '%" . mysqli_real_escape_string($conn, $_GET['email'])  . "%'";
+if (isset($_GET['salle'])  && $_GET['salle']  != '') $where .= " AND i.salles_id_salles = " . intval($_GET['salle']);
+if (isset($_GET['creneau'])&& $_GET['creneau']!= '') $where .= " AND i.creneaux_id_creneaux = " . intval($_GET['creneau']);
 
-$places_salles = [
-    "Plateau Régie" => ["oeuvres" => "Community · Distorsion", "dispo" => 8,  "couleur" => "cyan"],
-    "Salle 001"     => ["oeuvres" => "Distorsion",             "dispo" => 3,  "couleur" => "cyan"],
-    "Salle 002"     => ["oeuvres" => "Oeuvres 1-3",            "dispo" => 12, "couleur" => "cyan"],
-    "Salle 005"     => ["oeuvres" => "Oeuvres 1-4",            "dispo" => 0,  "couleur" => "rouge"],
-];
+// Réservations depuis la BDD
+$reservations = [];
+$res_resa = mysqli_query($conn, "SELECT i.id_inscriptions, u.nom, u.prenom, u.email, u.code_unique,
+                                        s.nom_salle, s.id_salles,
+                                        c.heure, c.jour, c.id_creneaux,
+                                        i.nb_personnes
+                                 FROM inscriptions i
+                                 JOIN utilisateurs u ON u.id_user = i.utilisateurs_id_user
+                                 JOIN salles s       ON s.id_salles = i.salles_id_salles
+                                 JOIN creneaux c     ON c.id_creneaux = i.creneaux_id_creneaux
+                                 WHERE $where
+                                 ORDER BY c.jour, c.heure");
+while ($row = mysqli_fetch_assoc($res_resa)) {
+    $reservations[] = $row;
+}
+
+// Total personnes inscrites
+$total_personnes = 0;
+for ($i = 0; $i < count($reservations); $i++) {
+    $total_personnes += $reservations[$i]['nb_personnes'];
+}
+
+// Charger salles et créneaux pour les selects du formulaire de modification
+$toutes_salles  = [];
+$tous_creneaux  = [];
+$res_s = mysqli_query($conn, "SELECT id_salles, nom_salle FROM salles ORDER BY id_salles");
+while ($s = mysqli_fetch_assoc($res_s)) { $toutes_salles[] = $s; }
+$res_c = mysqli_query($conn, "SELECT id_creneaux, jour, heure FROM creneaux ORDER BY jour, heure");
+while ($c = mysqli_fetch_assoc($res_c)) { $tous_creneaux[] = $c; }
+
+// Créneau sélectionné via les boutons (GET)
+$creneau_filtre = isset($_GET['creneau']) ? intval($_GET['creneau']) : 0;
+
+// Places par salle pour le créneau sélectionné (ou total si aucun créneau)
+$places_salles = [];
+if ($creneau_filtre > 0) {
+    $res_salles = mysqli_query($conn, "SELECT s.id_salles, s.nom_salle, COALESCE(SUM(i.nb_personnes), 0) AS total
+                                       FROM salles s
+                                       LEFT JOIN inscriptions i ON i.salles_id_salles = s.id_salles
+                                           AND i.creneaux_id_creneaux = $creneau_filtre
+                                       GROUP BY s.id_salles
+                                       ORDER BY s.id_salles");
+} else {
+    $res_salles = mysqli_query($conn, "SELECT s.id_salles, s.nom_salle, COALESCE(SUM(i.nb_personnes), 0) AS total
+                                       FROM salles s
+                                       LEFT JOIN inscriptions i ON i.salles_id_salles = s.id_salles
+                                       GROUP BY s.id_salles
+                                       ORDER BY s.id_salles");
+}
+while ($row = mysqli_fetch_assoc($res_salles)) {
+    $places_salles[] = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -75,50 +132,75 @@ $places_salles = [
 
     <!-- ── Filtres créneaux ── -->
     <div class="admin-block">
+        <a href="admin.php" class="admin-creneau <?php echo $creneau_filtre == 0 ? 'admin-creneau--active' : ''; ?>" style="margin-bottom:16px;display:inline-block">Tous les créneaux</a>
+        <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
+        <?php
+            $c = $tous_creneaux[$i];
+            $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN';
+            $lh = date('H\hi', strtotime($c['heure']));
+            // Afficher le label du jour avant le premier créneau de chaque journée
+            if ($i == 0 || $lj != (strtotime($tous_creneaux[$i-1]['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN')) :
+        ?>
         <div class="admin-creneaux-group">
-            <p class="admin-creneaux-label">CRÉNEAUX JEUDI 18 JUIN</p>
+            <p class="admin-creneaux-label"><?php echo $lj; ?></p>
             <div class="admin-creneaux">
-                <button class="admin-creneau admin-creneau--active" type="button">15h00</button>
-                <button class="admin-creneau" type="button">15h30</button>
-                <button class="admin-creneau" type="button">16h00</button>
-                <button class="admin-creneau" type="button">16h30</button>
-                <button class="admin-creneau" type="button">17h00</button>
-                <button class="admin-creneau" type="button">17h30</button>
-                <button class="admin-creneau" type="button">18h00</button>
-                <button class="admin-creneau" type="button">19h00</button>
-                <button class="admin-creneau" type="button">19h30</button>
-                <button class="admin-creneau" type="button">20h00</button>
+        <?php endif; ?>
+                <a href="admin.php?creneau=<?php echo $c['id_creneaux']; ?>" class="admin-creneau <?php echo $creneau_filtre == $c['id_creneaux'] ? 'admin-creneau--active' : ''; ?>"><?php echo $lh; ?></a>
+        <?php
+            $next_lj = ($i + 1 < count($tous_creneaux)) ? (strtotime($tous_creneaux[$i+1]['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN') : '';
+            if ($i == count($tous_creneaux) - 1 || $next_lj != $lj) :
+        ?>
             </div>
         </div>
-        <div class="admin-creneaux-group">
-            <p class="admin-creneaux-label">CRÉNEAUX VENDREDI 19 JUIN</p>
-            <div class="admin-creneaux">
-                <button class="admin-creneau" type="button">9h30</button>
-                <button class="admin-creneau" type="button">10h00</button>
-                <button class="admin-creneau" type="button">10h30</button>
-                <button class="admin-creneau" type="button">11h00</button>
-            </div>
-        </div>
+        <?php endif; ?>
+        <?php endfor; ?>
     </div>
 
     <!-- ── Places disponibles ── -->
     <div class="admin-block">
         <p class="section-label">Temps réel</p>
-        <h2 class="admin-section-title">Places disponibles par salle</h2>
+        <?php if ($creneau_filtre > 0) : ?>
+            <?php
+                // Trouver le label du créneau sélectionné
+                $label_cren = '';
+                for ($i = 0; $i < count($tous_creneaux); $i++) {
+                    if ($tous_creneaux[$i]['id_creneaux'] == $creneau_filtre) {
+                        $lj = strtotime($tous_creneaux[$i]['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                        $label_cren = date('H\hi', strtotime($tous_creneaux[$i]['heure'])) . ' — ' . $lj;
+                    }
+                }
+            ?>
+            <h2 class="admin-section-title">Places pour le créneau : <?php echo $label_cren; ?></h2>
+        <?php else : ?>
+            <h2 class="admin-section-title">Total des inscriptions par salle</h2>
+        <?php endif; ?>
         <div class="admin-salles-grid">
-            <?php foreach ($places_salles as $nom => $info) : ?>
-            <div class="admin-salle-card">
-                <span class="admin-salle-badge"><?php echo $nom; ?></span>
-                <p class="admin-salle-oeuvres"><?php echo $info['oeuvres']; ?></p>
+            <?php for ($i = 0; $i < count($places_salles); $i++) : ?>
+            <?php
+                $salle   = $places_salles[$i];
+                $id      = $salle['id_salles'];
+                $total   = intval($salle['total']);
+                $oeuvres = isset($oeuvres_salles[$id]) ? $oeuvres_salles[$id] : '';
+                $max     = $creneau_filtre > 0 ? 12 : 12 * count($tous_creneaux);
+                $pct     = $max > 0 ? min(($total / $max * 100), 100) : 0;
+                $plein   = $creneau_filtre > 0 && $total >= 12;
+            ?>
+            <div class="admin-salle-card <?php echo $plein ? 'admin-salle-card--plein' : ''; ?>">
+                <span class="admin-salle-badge <?php echo $plein ? 'admin-salle-badge--plein' : ''; ?>"><?php echo $salle['nom_salle']; ?></span>
+                <p class="admin-salle-oeuvres"><?php echo $oeuvres; ?></p>
                 <p class="admin-salle-dispo">
-                    <strong><?php echo $info['dispo']; ?></strong>
+                    <strong><?php echo $total; ?></strong>
+                    <?php if ($creneau_filtre > 0) : ?>
                     <span>/ 12 places</span>
+                    <?php else : ?>
+                    <span>personnes inscrites</span>
+                    <?php endif; ?>
                 </p>
                 <div class="admin-jauge-barre">
-                    <div class="admin-jauge-fill" style="width: <?php echo (12 - $info['dispo']) / 12 * 100; ?>%"></div>
+                    <div class="admin-jauge-fill" style="width: <?php echo $pct; ?>%"></div>
                 </div>
             </div>
-            <?php endforeach; ?>
+            <?php endfor; ?>
         </div>
     </div>
 
@@ -132,27 +214,20 @@ $places_salles = [
             <input type="email"  name="email"  class="admin-input" placeholder="Adresse email">
             <select name="salle" class="admin-input">
                 <option value="">Toutes les salles</option>
-                <option value="plateau">Plateau Régie</option>
-                <option value="salle001">Salle 001</option>
-                <option value="salle002">Salle 002</option>
-                <option value="salle005">Salle 005</option>
+                <?php for ($i = 0; $i < count($toutes_salles); $i++) : ?>
+                <option value="<?php echo $toutes_salles[$i]['id_salles']; ?>" <?php echo (isset($_GET['salle']) && $_GET['salle'] == $toutes_salles[$i]['id_salles']) ? 'selected' : ''; ?>><?php echo $toutes_salles[$i]['nom_salle']; ?></option>
+                <?php endfor; ?>
             </select>
             <select name="creneau" class="admin-input">
                 <option value="">Tous les créneaux</option>
-                <option value="jeudi-15h00">Jeudi 15h00</option>
-                <option value="jeudi-15h30">Jeudi 15h30</option>
-                <option value="jeudi-16h00">Jeudi 16h00</option>
-                <option value="jeudi-16h30">Jeudi 16h30</option>
-                <option value="jeudi-17h00">Jeudi 17h00</option>
-                <option value="jeudi-17h30">Jeudi 17h30</option>
-                <option value="jeudi-18h00">Jeudi 18h00</option>
-                <option value="jeudi-19h00">Jeudi 19h00</option>
-                <option value="jeudi-19h30">Jeudi 19h30</option>
-                <option value="jeudi-20h00">Jeudi 20h00</option>
-                <option value="vendredi-9h30">Vendredi 9h30</option>
-                <option value="vendredi-10h00">Vendredi 10h00</option>
-                <option value="vendredi-10h30">Vendredi 10h30</option>
-                <option value="vendredi-11h00">Vendredi 11h00</option>
+                <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
+                <?php
+                    $c = $tous_creneaux[$i];
+                    $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                    $lh = date('H\hi', strtotime($c['heure']));
+                ?>
+                <option value="<?php echo $c['id_creneaux']; ?>" <?php echo (isset($_GET['creneau']) && $_GET['creneau'] == $c['id_creneaux']) ? 'selected' : ''; ?>><?php echo $lh . ' — ' . $lj; ?></option>
+                <?php endfor; ?>
             </select>
             <button type="submit" class="btn-primary">Rechercher</button>
             <button type="reset" class="btn-outline" onclick="window.location='admin.php'">Réinitialiser</button>
@@ -163,7 +238,7 @@ $places_salles = [
     <div class="admin-block">
         <p class="section-label">Réservations</p>
         <h2 class="admin-section-title">Affichage global par salle et horaire</h2>
-        <p class="admin-total">8 réservations · 30 personnes inscrites</p>
+        <p class="admin-total"><?php echo count($reservations); ?> réservations · <?php echo $total_personnes; ?> personnes inscrites</p>
 
         <table class="admin-table">
             <thead>
@@ -171,39 +246,38 @@ $places_salles = [
                     <th>#</th>
                     <th>Nom</th>
                     <th>Prénom</th>
+                    <th>Email</th>
                     <th>Salle</th>
                     <th>Créneau</th>
                     <th>Places</th>
-                    <th>Statut</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($reservations as $r) : ?>
+                <?php for ($i = 0; $i < count($reservations); $i++) : ?>
+                <?php $r = $reservations[$i]; ?>
+                <?php
+                    $label_jour   = strtotime($r['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                    $label_heure  = date('H\hi', strtotime($r['heure']));
+                ?>
                 <tr>
-                    <td class="admin-table__id"><?php echo $r['id']; ?></td>
+                    <td class="admin-table__id"><?php echo $r['id_inscriptions']; ?></td>
                     <td><?php echo $r['nom']; ?></td>
                     <td><?php echo $r['prenom']; ?></td>
-                    <td><span class="admin-salle-tag"><?php echo $r['salle']; ?></span></td>
-                    <td><?php echo $r['creneau']; ?></td>
-                    <td><?php echo $r['places']; ?></td>
-                    <td>
-                        <?php if ($r['statut'] == 'confirme') : ?>
-                            <span class="admin-statut admin-statut--ok">Confirmé</span>
-                        <?php else : ?>
-                            <span class="admin-statut admin-statut--annule">Annulé</span>
-                        <?php endif; ?>
-                    </td>
+                    <td style="font-size:11px;color:#666"><?php echo $r['email']; ?></td>
+                    <td><span class="admin-salle-tag"><?php echo $r['nom_salle']; ?></span></td>
+                    <td><?php echo $label_heure . ' — ' . $label_jour; ?></td>
+                    <td><?php echo $r['nb_personnes']; ?></td>
                     <td class="admin-table__actions">
-                        <button class="btn-modifier" onclick="chargerEdition('<?php echo $r['id']; ?>', '<?php echo $r['nom']; ?>', '<?php echo $r['prenom']; ?>', '<?php echo $r['salle']; ?>', '<?php echo $r['creneau']; ?>', <?php echo $r['places']; ?>)">Modifier</button>
-                        <form method="post" action="admin.php" style="display:inline" onsubmit="return confirm('Supprimer la réservation de <?php echo $r['nom']; ?> <?php echo $r['prenom']; ?> ? Cette action est irréversible.')">
+                        <button class="btn-modifier" onclick="chargerEdition(<?php echo $r['id_inscriptions']; ?>, '<?php echo addslashes($r['nom']); ?>', '<?php echo addslashes($r['prenom']); ?>', <?php echo $r['id_salles']; ?>, <?php echo $r['id_creneaux']; ?>, <?php echo $r['nb_personnes']; ?>)">Modifier</button>
+                        <form method="post" action="admin.php" style="display:inline" onsubmit="return confirm('Supprimer la réservation de <?php echo $r['nom']; ?> <?php echo $r['prenom']; ?> ?')">
                             <input type="hidden" name="action" value="supprimer">
-                            <input type="hidden" name="id" value="<?php echo $r['id']; ?>">
+                            <input type="hidden" name="id" value="<?php echo $r['id_inscriptions']; ?>">
                             <button type="submit" class="btn-supprimer-inline">Supprimer</button>
                         </form>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endfor; ?>
             </tbody>
         </table>
 
@@ -236,21 +310,23 @@ $places_salles = [
                     </div>
                     <div class="form-group">
                         <label class="form-label">Salle</label>
-                        <select name="salle" id="edit-salle" class="admin-input">
-                            <option value="Plateau Régie">Plateau Régie</option>
-                            <option value="Salle 001">Salle 001</option>
-                            <option value="Salle 002">Salle 002</option>
-                            <option value="Salle 005">Salle 005</option>
+                        <select name="id_salle" id="edit-salle" class="admin-input">
+                            <?php for ($i = 0; $i < count($toutes_salles); $i++) : ?>
+                            <option value="<?php echo $toutes_salles[$i]['id_salles']; ?>"><?php echo $toutes_salles[$i]['nom_salle']; ?></option>
+                            <?php endfor; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Créneau</label>
-                        <select name="creneau" id="edit-creneau" class="admin-input">
-                            <option>15h00</option><option>15h30</option><option>16h00</option>
-                            <option>16h30</option><option>17h00</option><option>17h30</option>
-                            <option>18h00</option><option>19h00</option><option>19h30</option>
-                            <option>20h00</option><option>9h30</option><option>10h00</option>
-                            <option>10h30</option><option>11h00</option>
+                        <select name="id_creneau" id="edit-creneau" class="admin-input">
+                            <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
+                            <?php
+                                $c = $tous_creneaux[$i];
+                                $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                                $lh = date('H\hi', strtotime($c['heure']));
+                            ?>
+                            <option value="<?php echo $c['id_creneaux']; ?>"><?php echo $lh . ' — ' . $lj; ?></option>
+                            <?php endfor; ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -291,9 +367,9 @@ $places_salles = [
 </footer>
 
 <script>
-function chargerEdition(id, nom, prenom, salle, creneau, places) {
+function chargerEdition(id, nom, prenom, idSalle, idCreneau, places) {
     document.getElementById('edition-form').style.display = 'block';
-    document.getElementById('edition-ref').textContent = '# Réservation ' + id + ' - ' + nom + ' ' + prenom + ' · ' + salle + ' · ' + creneau + ' · ' + places + ' personnes';
+    document.getElementById('edition-ref').textContent = '# Réservation ' + id + ' — ' + nom + ' ' + prenom + ' · ' + places + ' personnes';
     document.getElementById('edit-id').value     = id;
     document.getElementById('edit-nom').value    = nom;
     document.getElementById('edit-prenom').value = prenom;
@@ -301,13 +377,13 @@ function chargerEdition(id, nom, prenom, salle, creneau, places) {
 
     var selectSalle = document.getElementById('edit-salle');
     for (var i = 0; i < selectSalle.options.length; i++) {
-        if (selectSalle.options[i].value == salle) {
+        if (selectSalle.options[i].value == idSalle) {
             selectSalle.selectedIndex = i;
         }
     }
     var selectCreneau = document.getElementById('edit-creneau');
     for (var i = 0; i < selectCreneau.options.length; i++) {
-        if (selectCreneau.options[i].value == creneau) {
+        if (selectCreneau.options[i].value == idCreneau) {
             selectCreneau.selectedIndex = i;
         }
     }
@@ -336,16 +412,6 @@ function changerNombre(delta) {
     }
 }
 
-// Highlight créneau actif
-var creneaux = document.querySelectorAll('.admin-creneau');
-for (var i = 0; i < creneaux.length; i++) {
-    creneaux[i].addEventListener('click', function() {
-        for (var j = 0; j < creneaux.length; j++) {
-            creneaux[j].classList.remove('admin-creneau--active');
-        }
-        this.classList.add('admin-creneau--active');
-    });
-}
 </script>
 
 </body>

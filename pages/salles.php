@@ -91,16 +91,10 @@ $salles = [
                 "cote"  => "droite"
             ],
             [
-                "titre" => "La chute d'Alice",
+                "titre" => "Datura",
                 "desc"  => "En jouant du synthétiseur, transformez en temps réel la chute d'Alice au pays des merveilles. Les notes modifient les formes et couleurs de la chute. Une deuxième personne peut déformer la sonorité tandis qu'une pédale de sustain ralentit ou étire la scène. Une performance collective où la technologie devient le pinceau d'une chute onirique.",
                 "img"   => "",
                 "cote"  => "gauche"
-            ],
-            [
-                "titre" => "Œuvre 4",
-                "desc"  => "La quatrième installation de La Pépinière sera dévoilée prochainement.",
-                "img"   => "",
-                "cote"  => "droite"
             ],
         ]
     ],

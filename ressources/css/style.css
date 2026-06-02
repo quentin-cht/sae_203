@@ -630,6 +630,8 @@ section { padding: 80px 48px; }
     font-size: 12px;
     color: var(--cyan-mid);
     transition: background 0.2s, color 0.2s;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 .contact-card__email:hover {
@@ -1608,6 +1610,8 @@ section { padding: 80px 48px; }
     border: 1px solid #2a2a2a;
     padding: 20px;
     background-color: var(--black);
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-salle-card--plein { border-color: var(--red); }
@@ -1632,6 +1636,7 @@ section { padding: 80px 48px; }
     align-items: baseline;
     gap: 6px;
     margin-bottom: 10px;
+    margin-top: auto;
 }
 
 .admin-salle-dispo strong { font-size: 32px; color: var(--white); }
@@ -1850,6 +1855,63 @@ section { padding: 80px 48px; }
     display: flex;
     align-items: center;
     gap: 16px;
+}
+
+/* ── Lignes de réservation individuelles ── */
+.resa-ligne {
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    background: #111;
+}
+
+.resa-ligne__infos {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+}
+
+.resa-ligne__salle {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    min-width: 160px;
+}
+
+.resa-ligne__creneau {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.resa-ligne__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.btn-outline--small {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+}
+
+.resa-modif-form {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.resa-modif-form__champs {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.resa-modif-form__champs .form-group {
+    flex: 1;
+    min-width: 200px;
 }
 
 .form-hint-inline {

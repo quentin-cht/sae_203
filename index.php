@@ -66,7 +66,7 @@ include 'includes/header.php';
             [
                 "num"     => "Salle 005",
                 "nom"     => "La Pépinière",
-                "oeuvres" => ["Lotus", "E-biscus", "La chute d'Alice", "Œuvre 4"],
+                "oeuvres" => ["Lotus", "E-biscus", "Datura"],
                 "img"     => ""
             ],
         ];
