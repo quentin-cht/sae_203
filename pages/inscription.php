@@ -101,6 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nom'])) {
         $erreur = implode('<br>', $erreurs_places);
     } else {
         $message = "Inscription confirmée ! Votre code de réservation : <strong>$code_unique</strong> — un email vous sera envoyé.";
+
+        // Envoi du mail de confirmation
+        $sujet = "Confirmation de réservation — E-LLUSION";
+        $corps = "Bonjour $prenom,\n\nVotre réservation est confirmée.\nVotre code de réservation : $code_unique\n\nA bientot,\nL'equipe E-LLUSION";
+        $headers = "From: noreply@ellusion.fr";
+        mail($email, $sujet, $corps, $headers);
     }
 }
 
