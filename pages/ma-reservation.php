@@ -12,10 +12,19 @@ $message_ok         = '';
 // Récupérer toutes les salles et créneaux pour le formulaire de modification
 $toutes_salles   = [];
 $tous_creneaux   = [];
-$res_salles = mysqli_query($conn, "SELECT id_salles, nom_salle FROM salles ORDER BY id_salles");
-while ($s = mysqli_fetch_assoc($res_salles)) { $toutes_salles[] = $s; }
-$res_cren = mysqli_query($conn, "SELECT id_creneaux, jour, heure FROM creneaux ORDER BY jour, heure");
-while ($c = mysqli_fetch_assoc($res_cren)) { $tous_creneaux[] = $c; }
+$res_salles  = mysqli_query($conn, "SELECT id_salles, nom_salle FROM salles ORDER BY id_salles");
+$nb_salles   = mysqli_num_rows($res_salles);
+for ($i = 0; $i < $nb_salles; $i++) {
+    $s = mysqli_fetch_row($res_salles);
+    $toutes_salles[] = ['id_salles' => $s[0], 'nom_salle' => $s[1]];
+}
+
+$res_cren  = mysqli_query($conn, "SELECT id_creneaux, jour, heure FROM creneaux ORDER BY jour, heure");
+$nb_cren   = mysqli_num_rows($res_cren);
+for ($i = 0; $i < $nb_cren; $i++) {
+    $c = mysqli_fetch_row($res_cren);
+    $tous_creneaux[] = ['id_creneaux' => $c[0], 'jour' => $c[1], 'heure' => $c[2]];
+}
 
 // Fonction : charger les réservations d'un utilisateur
 function chargerReservations($conn, $email, $reference) {

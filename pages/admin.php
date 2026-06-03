@@ -69,10 +69,19 @@ for ($i = 0; $i < count($reservations); $i++) {
 // Charger salles et créneaux pour les selects du formulaire de modification
 $toutes_salles  = [];
 $tous_creneaux  = [];
-$res_s = mysqli_query($conn, "SELECT id_salles, nom_salle FROM salles ORDER BY id_salles");
-while ($s = mysqli_fetch_assoc($res_s)) { $toutes_salles[] = $s; }
-$res_c = mysqli_query($conn, "SELECT id_creneaux, jour, heure FROM creneaux ORDER BY jour, heure");
-while ($c = mysqli_fetch_assoc($res_c)) { $tous_creneaux[] = $c; }
+$res_s   = mysqli_query($conn, "SELECT id_salles, nom_salle FROM salles ORDER BY id_salles");
+$nb_s    = mysqli_num_rows($res_s);
+for ($i = 0; $i < $nb_s; $i++) {
+    $s = mysqli_fetch_row($res_s);
+    $toutes_salles[] = ['id_salles' => $s[0], 'nom_salle' => $s[1]];
+}
+
+$res_c   = mysqli_query($conn, "SELECT id_creneaux, jour, heure FROM creneaux ORDER BY jour, heure");
+$nb_c    = mysqli_num_rows($res_c);
+for ($i = 0; $i < $nb_c; $i++) {
+    $c = mysqli_fetch_row($res_c);
+    $tous_creneaux[] = ['id_creneaux' => $c[0], 'jour' => $c[1], 'heure' => $c[2]];
+}
 
 // Créneau sélectionné via les boutons (GET)
 $creneau_filtre = isset($_GET['creneau']) ? intval($_GET['creneau']) : 0;
@@ -93,8 +102,10 @@ if ($creneau_filtre > 0) {
                                        GROUP BY s.id_salles
                                        ORDER BY s.id_salles");
 }
-while ($row = mysqli_fetch_assoc($res_salles)) {
-    $places_salles[] = $row;
+$nb_ps = mysqli_num_rows($res_salles);
+for ($i = 0; $i < $nb_ps; $i++) {
+    $row = mysqli_fetch_row($res_salles);
+    $places_salles[] = ['id_salles' => $row[0], 'nom_salle' => $row[1], 'total' => $row[2]];
 }
 ?>
 <!DOCTYPE html>

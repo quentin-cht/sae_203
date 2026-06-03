@@ -599,7 +599,11 @@ section { padding: 80px 48px; }
     height: 36px;
 }
 
-.contact-card__info { flex: 1; }
+.contact-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
 .contact-card__role {
     font-size: 11px;
@@ -627,11 +631,12 @@ section { padding: 80px 48px; }
     display: inline-block;
     padding: 8px 14px;
     border: 1px solid var(--cyan-dark);
-    font-size: 12px;
+    font-size: 11px;
     color: var(--cyan-mid);
     transition: background 0.2s, color 0.2s;
     margin-top: auto;
     align-self: flex-start;
+    word-break: break-all;
 }
 
 .contact-card__email:hover {
