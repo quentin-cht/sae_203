@@ -73,7 +73,6 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
 
             </form>
 
-            <p class="auth-switch">Vous n'avez pas de compte ? <a href="creer-compte.php" class="auth-link">Créer un compte</a></p>
         </div>
     </div>
 
