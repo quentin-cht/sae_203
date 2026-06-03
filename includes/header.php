@@ -17,5 +17,34 @@
         <li><a href="<?php echo $rootPath ?? ''; ?>pages/inscription.php">Inscription</a></li>
         <li><a href="<?php echo $rootPath ?? ''; ?>pages/contact.php">Contact</a></li>
     </ul>
-    <a href="<?php echo $rootPath ?? ''; ?>pages/ma-reservation.php" class="btn-login">Ma réservation</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/ma-reservation.php" class="btn-login navbar__resa">Ma réservation</a>
+    <button class="navbar__burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
+
+<!-- Menu mobile -->
+<div class="navbar__mobile" id="mobileMenu">
+    <a href="<?php echo $rootPath ?? ''; ?>index.php">Accueil</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/exposition.php">L'Exposition</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/salles.php">Les Salles</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/inscription.php">Inscription</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/contact.php">Contact</a>
+    <a href="<?php echo $rootPath ?? ''; ?>pages/ma-reservation.php" class="navbar__mobile-resa">Ma réservation</a>
+</div>
+
+<script>
+function toggleMenu() {
+    var menu = document.getElementById('mobileMenu');
+    var burger = document.getElementById('burger');
+    if (menu.classList.contains('navbar__mobile--open')) {
+        menu.classList.remove('navbar__mobile--open');
+        burger.classList.remove('navbar__burger--open');
+    } else {
+        menu.classList.add('navbar__mobile--open');
+        burger.classList.add('navbar__burger--open');
+    }
+}
+</script>

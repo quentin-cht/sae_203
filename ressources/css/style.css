@@ -85,6 +85,66 @@ img { max-width: 100%; display: block; }
     color: var(--black);
 }
 
+/* ── Burger button (caché sur desktop) ── */
+.navbar__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid #333;
+    cursor: pointer;
+    padding: 8px;
+    flex-shrink: 0;
+}
+
+.navbar__burger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Animation burger → croix */
+.navbar__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar__burger--open span:nth-child(2) { opacity: 0; }
+.navbar__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Menu mobile (caché par défaut) ── */
+.navbar__mobile {
+    display: none;
+    flex-direction: column;
+    background-color: #0d0d0d;
+    border-bottom: 1px solid #1e1e1e;
+    padding: 0;
+    position: sticky;
+    top: 57px;
+    z-index: 99;
+}
+
+.navbar__mobile--open { display: flex; }
+
+.navbar__mobile a {
+    padding: 16px 24px;
+    font-size: 15px;
+    color: var(--white);
+    border-bottom: 1px solid #1a1a1a;
+    transition: color 0.2s, background 0.2s;
+}
+
+.navbar__mobile a:hover {
+    color: var(--cyan-mid);
+    background-color: #111;
+}
+
+.navbar__mobile-resa {
+    color: var(--cyan-mid) !important;
+    font-weight: bold;
+}
+
 /* ── Boutons ── */
 .btn-primary {
     display: inline-block;
@@ -1962,20 +2022,205 @@ section { padding: 80px 48px; }
 
 .mentions-block a:hover { color: var(--cyan-mid); }
 
-/* ── Responsive basique ── */
-@media (max-width: 900px) {
-    .hero { flex-direction: column; padding: 40px 24px; }
-    .hero__carousel { max-width: 100%; width: 100%; }
+/* ══════════════════════════════════════════════
+   RESPONSIVE — Tablette (max 1024px)
+   ══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+    /* Navbar */
+    .navbar { padding: 16px 28px; }
+    .navbar__links { gap: 24px; }
+
+    /* Hero */
+    .hero { padding: 60px 28px; gap: 32px; }
+    .hero__title { font-size: 28px; }
+
+    /* Sections */
+    section { padding: 60px 28px; }
+
+    /* Salles index */
     .salles__grid { grid-template-columns: repeat(2, 1fr); }
-    .navbar { padding: 16px 24px; }
-    .navbar__links { gap: 20px; }
-    section { padding: 60px 24px; }
-    .cta-banner { flex-direction: column; padding: 40px 24px; }
+
+    /* Infos pratiques */
+    .infos__grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Admin salles */
+    .admin-salles-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Admin page */
+    .admin-page { padding: 28px 28px 60px; }
+
+    /* Concept expo */
+    .concept__inner { gap: 40px; }
+
+    /* Footer */
+    .footer { padding: 28px 28px; }
+    .footer__logos { margin-right: 40px; }
 }
 
-@media (max-width: 600px) {
+/* ══════════════════════════════════════════════
+   RESPONSIVE — Mobile (max 768px)
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* ── Navbar ── */
+    .navbar {
+        padding: 14px 20px;
+    }
     .navbar__links { display: none; }
-    .salles__grid { grid-template-columns: 1fr; }
-    .hero__title { font-size: 22px; }
-    .section-title { font-size: 24px; }
+    .navbar__resa  { display: none; }
+    .navbar__burger { display: flex; }
+
+    /* ── Sections ── */
+    section { padding: 48px 20px; }
+    .section-title { font-size: 26px; }
+
+    /* ── Hero ── */
+    .hero {
+        flex-direction: column;
+        padding: 48px 20px;
+        min-height: auto;
+        gap: 32px;
+    }
+    .hero__title { font-size: 24px; }
+    .hero__subtitle { font-size: 18px; }
+    .hero__carousel { max-width: 100%; width: 100%; }
+    .hero__buttons { flex-direction: column; gap: 12px; }
+    .hero__buttons .btn-primary,
+    .hero__buttons .btn-outline { width: 100%; text-align: center; }
+
+    /* ── CTA banner ── */
+    .cta-banner {
+        flex-direction: column;
+        padding: 36px 20px;
+        text-align: center;
+        gap: 20px;
+    }
+    .cta-banner__title { font-size: 20px; }
+
+    /* ── Salles grid index ── */
+    .salles__grid { grid-template-columns: 1fr; gap: 16px; }
+
+    /* ── Infos pratiques ── */
+    .infos__grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── Concept expo ── */
+    .concept { padding: 48px 20px; }
+    .concept__inner { flex-direction: column; gap: 28px; }
+
+    /* ── Expo hero ── */
+    .expo-hero { padding: 48px 20px 32px; }
+    .expo-hero__title { font-size: 32px; }
+    .expo-hero__subtitle { font-size: 20px; }
+    .expo-hero__buttons { flex-direction: column; gap: 12px; }
+
+    /* ── Oeuvres ── */
+    .oeuvre {
+        flex-direction: column !important;
+        gap: 24px;
+        padding: 28px 20px;
+    }
+    .oeuvre__media { max-width: 100%; width: 100%; }
+
+    /* ── Page Salles ── */
+    .salles-hero { padding: 48px 20px 32px; }
+    .salles-accordion { padding: 0 20px 60px; }
+
+    /* ── Contact hero ── */
+    .contact-hero { padding: 48px 20px 32px; }
+
+    /* ── Contact page ── */
+    .contact-page { padding: 28px 20px; gap: 28px; }
+    .contact-cards-row { grid-template-columns: 1fr; }
+    .contact-infos {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    .contact-cta {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 20px;
+    }
+
+    /* ── Inscription hero ── */
+    .inscrip-hero { padding: 48px 20px 32px; }
+
+    /* ── Formulaire inscription ── */
+    .inscrip-section { padding: 28px 16px; }
+    .inscrip-form { padding: 24px 20px; }
+    .form-row { grid-template-columns: 1fr; gap: 12px; }
+    .salle-grid { grid-template-columns: 1fr; }
+    .jour-tabs { width: 100%; }
+    .jour-tab { flex: 1; text-align: center; }
+
+    /* ── Ma réservation ── */
+    .resa-recap__grid { grid-template-columns: 1fr; gap: 12px; }
+    .resa-ligne__infos { flex-direction: column; gap: 6px; align-items: flex-start; }
+    .resa-ligne__salle { min-width: unset; }
+    .resa-modif-form__champs { flex-direction: column; }
+
+    /* ── Admin ── */
+    .admin-nav { padding: 14px 20px; flex-wrap: wrap; gap: 10px; }
+    .admin-page { padding: 20px 16px 48px; gap: 32px; }
+    .admin-salles-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-search { flex-direction: column; }
+    .admin-input { min-width: unset; width: 100%; }
+    .admin-edition-champs { flex-direction: column; }
+
+    /* Tableau admin → scroll horizontal */
+    .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .admin-table { min-width: 600px; }
+
+    /* ── Auth ── */
+    .auth-layout { flex-direction: column; height: auto; min-height: 100vh; }
+    .auth-left { width: 100%; height: auto; padding: 24px 20px; gap: 16px; }
+    .auth-left__visual { display: none; }
+    .auth-right { padding: 24px 20px; }
+    .auth-row { grid-template-columns: 1fr; }
+
+    /* ── Footer ── */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 28px 20px;
+        gap: 24px;
+    }
+    .footer__logos { margin-right: 0; }
+    .footer__copy { align-items: center; }
+    .footer__links { justify-content: center; }
+
+    /* ── Mentions légales ── */
+    .mentions-page { padding: 28px 20px; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — Petit mobile (max 480px)
+   ══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+    /* Navbar déjà gérée à 768px */
+
+    /* Hero */
+    .hero__title { font-size: 20px; }
+    .section-title { font-size: 22px; }
+
+    /* Infos pratiques : 1 colonne */
+    .infos__grid { grid-template-columns: 1fr; }
+
+    /* Expo title */
+    .expo-hero__title { font-size: 24px; }
+
+    /* Admin salles : 1 colonne */
+    .admin-salles-grid { grid-template-columns: 1fr; }
+
+    /* Formulaire */
+    .inscrip-form { padding: 20px 16px; }
+
+    /* Footer logos plus petits */
+    .footer__logos img { height: 50px; }
+    .footer__logos img:nth-child(2) { height: 80px; }
+    .footer__logos img:nth-child(1) { bottom: 20px; }
 }

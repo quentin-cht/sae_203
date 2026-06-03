@@ -251,6 +251,7 @@ for ($i = 0; $i < $nb_ps; $i++) {
         <h2 class="admin-section-title">Affichage global par salle et horaire</h2>
         <p class="admin-total"><?php echo count($reservations); ?> réservations · <?php echo $total_personnes; ?> personnes inscrites</p>
 
+        <div class="admin-table-wrapper">
         <table class="admin-table">
             <thead>
                 <tr>
@@ -291,6 +292,7 @@ for ($i = 0; $i < $nb_ps; $i++) {
                 <?php endfor; ?>
             </tbody>
         </table>
+        </div><!-- fin admin-table-wrapper -->
 
         <div class="admin-pagination">
             <span class="admin-pagination__info">Page 1 / 3 · 24 résultats</span>
