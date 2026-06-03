@@ -1,0 +1,177 @@
+/* ── Page Exposition ── */
+.expo-hero {
+    padding: 64px 48px;
+    background-color: var(--black);
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.expo-hero__title {
+    font-family: var(--font-pixel);
+    font-size: 48px;
+    color: var(--cyan-mid);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.expo-hero__subtitle {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.expo-hero__desc {
+    font-size: 14px;
+    color: #aaa;
+    max-width: 100%;
+    margin-bottom: 32px;
+    line-height: 1.8;
+}
+
+.expo-hero__buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ── Concept ── */
+.concept {
+    padding: 80px 48px;
+    background-color: #0e0e0e;
+}
+
+.concept__inner {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.concept__left { flex: 1; }
+
+.concept__text {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.concept__text--light { font-size: 12px; color: #666; }
+.concept__media { flex: 1; }
+
+.concept__placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--cyan-dark);
+    background-color: var(--black-card);
+}
+
+/* ── Infos pratiques ── */
+.infos {
+    padding: 80px 48px;
+    background-color: var(--black);
+}
+
+.infos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: #222;
+    border: 1px solid #222;
+    margin-top: 40px;
+}
+
+.info-card {
+    background-color: var(--black);
+    padding: 28px 24px;
+    text-align: center;
+}
+
+.info-card__title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #222;
+}
+
+.info-card__text { font-size: 12px; color: #888; line-height: 2; }
+
+/* ── Salles grid ── */
+.salles { background-color: var(--black); }
+
+.salles__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.salle-card {
+    background-color: var(--black-card2);
+    border: 1px solid #222;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.salle-card:hover { border-color: var(--cyan-dark); }
+
+.salle-card__badge {
+    font-size: 10px;
+    color: var(--cyan-mid);
+    padding: 10px 14px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.salle-card__photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.salle-card__photo img { width: 100%; height: 100%; object-fit: cover; }
+.salle-card__body { padding: 14px; }
+.salle-card__name { font-size: 14px; font-weight: bold; margin-bottom: 6px; }
+.salle-card__oeuvres { font-size: 11px; color: var(--cyan-dark); margin-bottom: 16px; line-height: 1.6; }
+
+/* ── Bandeau CTA ── */
+.cta-banner {
+    background-color: var(--cyan-mid);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 48px;
+    gap: 32px;
+}
+
+.cta-banner__title { font-size: 26px; font-weight: bold; margin-bottom: 8px; }
+.cta-banner__sub { font-size: 13px; opacity: 0.8; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .infos__grid { grid-template-columns: repeat(2, 1fr); }
+    .concept__inner { gap: 40px; }
+    .salles__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .expo-hero { padding: 48px 20px 32px; }
+    .expo-hero__title { font-size: 32px; }
+    .expo-hero__subtitle { font-size: 20px; }
+    .expo-hero__buttons { flex-direction: column; gap: 12px; }
+    .concept { padding: 48px 20px; }
+    .concept__inner { flex-direction: column; gap: 28px; }
+    .infos__grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-banner { flex-direction: column; padding: 36px 20px; text-align: center; gap: 20px; }
+    .cta-banner__title { font-size: 20px; }
+}
+
+@media (max-width: 480px) {
+    .expo-hero__title { font-size: 24px; }
+    .infos__grid { grid-template-columns: 1fr; }
+    .salles__grid { grid-template-columns: 1fr; gap: 16px; }
+}

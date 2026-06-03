@@ -1,0 +1,225 @@
+/* ── Page Admin ── */
+.admin-body { background-color: var(--black); color: var(--white); font-family: var(--font-main); }
+
+.admin-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    border-bottom: 1px solid #1e1e1e;
+    background-color: #080808;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.admin-nav__logo { font-family: var(--font-pixel); font-size: 13px; color: var(--cyan-mid); letter-spacing: 2px; }
+
+.admin-nav__badge {
+    background-color: var(--cyan-dark);
+    color: var(--black);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 12px;
+    letter-spacing: 2px;
+}
+
+.admin-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.admin-hero { border-bottom: 1px solid #1a1a1a; padding-bottom: 24px; }
+.admin-title { font-size: 28px; font-weight: bold; margin-bottom: 8px; }
+.admin-subtitle { font-size: 13px; color: #666; }
+.admin-section-title { font-size: 20px; font-weight: bold; margin-bottom: 20px; }
+
+.admin-block {
+    border: 1px solid #1e1e1e;
+    padding: 28px 32px;
+    background-color: #0b0b0b;
+}
+
+/* ── Créneaux ── */
+.admin-creneaux-group { margin-bottom: 16px; }
+.admin-creneaux-group:last-child { margin-bottom: 0; }
+.admin-creneaux-label { font-size: 10px; letter-spacing: 2px; color: #555; margin-bottom: 10px; }
+.admin-creneaux { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.admin-creneau {
+    padding: 8px 16px;
+    border: 1px solid #2a2a2a;
+    background: transparent;
+    color: #aaa;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.admin-creneau--active {
+    border-color: var(--cyan-dark);
+    color: var(--cyan-mid);
+    background-color: #0e2a27;
+}
+
+/* ── Salles grid ── */
+.admin-salles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.admin-salle-card {
+    border: 1px solid #2a2a2a;
+    padding: 20px;
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-salle-card--plein { border-color: var(--red); }
+
+.admin-salle-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: var(--cyan-dark);
+    color: var(--black);
+    padding: 3px 8px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.admin-salle-badge--plein { background-color: var(--red); color: var(--white); }
+.admin-salle-oeuvres { font-size: 11px; color: #555; margin-bottom: 12px; }
+
+.admin-salle-dispo {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 10px;
+    margin-top: auto;
+}
+
+.admin-salle-dispo strong { font-size: 32px; color: var(--white); }
+.admin-salle-dispo span { font-size: 12px; color: #555; }
+
+.admin-jauge-barre { height: 3px; background-color: #1a1a1a; width: 100%; }
+.admin-jauge-fill { height: 3px; background-color: var(--cyan-dark); transition: width 0.3s; }
+.admin-jauge-fill--plein { background-color: var(--red); }
+
+/* ── Recherche ── */
+.admin-search { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+.admin-input {
+    background-color: #111;
+    border: 1px solid #2a2a2a;
+    color: var(--white);
+    padding: 10px 14px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 140px;
+    transition: border-color 0.2s;
+}
+
+.admin-input:focus { outline: none; border-color: var(--cyan-dark); }
+.admin-input option { background-color: #111; }
+
+/* ── Tableau ── */
+.admin-total { font-size: 12px; color: #555; margin-bottom: 16px; }
+.admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+.admin-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #555;
+    border-bottom: 1px solid #1e1e1e;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td { padding: 12px 14px; border-bottom: 1px solid #111; color: #ccc; }
+.admin-table tr:hover td { background-color: #0e0e0e; }
+.admin-table__id { color: #444; font-size: 11px; }
+
+.admin-salle-tag { font-size: 11px; color: var(--cyan-mid); font-weight: bold; }
+
+.admin-statut { display: inline-block; padding: 4px 10px; font-size: 11px; font-weight: bold; }
+.admin-statut--ok { background-color: #0e2a27; color: var(--cyan-mid); border: 1px solid var(--cyan-dark); }
+.admin-statut--annule { background-color: #2a0e0e; color: #e05555; border: 1px solid var(--red); }
+
+.admin-table__actions { display: flex; gap: 8px; }
+
+.btn-modifier {
+    padding: 5px 12px;
+    border: 1px solid var(--cyan-dark);
+    background: transparent;
+    color: var(--cyan-mid);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-modifier:hover { background-color: var(--cyan-dark); color: var(--black); }
+
+/* ── Pagination ── */
+.admin-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.admin-pagination__info { font-size: 12px; color: #555; margin-right: auto; }
+
+/* ── Édition ── */
+.admin-edition-hint { font-size: 13px; color: #555; margin-bottom: 16px; }
+
+.admin-edition-ref {
+    font-size: 12px;
+    color: var(--cyan-mid);
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    border: 1px solid #1e1e1e;
+    background-color: #0e0e0e;
+}
+
+.admin-edition-champs { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.admin-edition-champs .form-group { flex: 1; min-width: 160px; }
+.admin-edition-champs .admin-input { width: 100%; }
+
+.admin-edition-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.btn-supprimer {
+    padding: 10px 20px;
+    background-color: var(--red);
+    color: var(--white);
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-supprimer:hover { opacity: 0.85; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .admin-salles-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-page { padding: 28px 28px 60px; }
+}
+
+@media (max-width: 768px) {
+    .admin-nav { padding: 14px 20px; flex-wrap: wrap; gap: 10px; }
+    .admin-page { padding: 20px 16px 48px; gap: 32px; }
+    .admin-salles-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-search { flex-direction: column; }
+    .admin-input { min-width: unset; width: 100%; }
+    .admin-edition-champs { flex-direction: column; }
+    .admin-table { min-width: 600px; }
+}
+
+@media (max-width: 480px) {
+    .admin-salles-grid { grid-template-columns: 1fr; }
+}

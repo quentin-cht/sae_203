@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle . ' — E-LLUSION' : 'E-LLUSION'; ?></title>
+    <link rel="stylesheet" href="<?php echo $rootPath ?? ''; ?>ressources/css/reset.css">
     <link rel="stylesheet" href="<?php echo $rootPath ?? ''; ?>ressources/css/style.css">
+    <?php if (isset($pageCss)) echo '<link rel="stylesheet" href="' . ($rootPath ?? '') . 'ressources/css/' . $pageCss . '">'; ?>
 </head>
 <body>
 

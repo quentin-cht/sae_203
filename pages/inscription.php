@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nom'])) {
     }
 }
 
+$pageCss = "inscription.css";
 include '../includes/header.php';
 ?>
 

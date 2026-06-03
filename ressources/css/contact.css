@@ -1,0 +1,103 @@
+/* ── Page Contact ── */
+.contact-hero {
+    padding: 64px 48px 40px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.contact-hero__sub { font-size: 14px; color: #aaa; margin-top: 8px; }
+
+.contact-page {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contact-cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.contact-card {
+    background-color: var(--black-card2);
+    border: 1px solid #222;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s;
+}
+
+.contact-card:hover { border-color: var(--cyan-dark); }
+
+.contact-card__avatar {
+    width: 44px;
+    height: 44px;
+    background-color: #2a2a2a;
+    border: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.contact-card__avatar--sm { width: 36px; height: 36px; }
+
+.contact-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-card__role { font-size: 11px; color: #666; margin-bottom: 6px; letter-spacing: 0.5px; }
+.contact-card__name { font-size: 18px; font-weight: bold; margin-bottom: 4px; line-height: 1.3; }
+.contact-card--ref .contact-card__name { font-size: 15px; }
+.contact-card__org { font-size: 12px; color: #777; margin-bottom: 16px; }
+
+.contact-card__email {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--cyan-dark);
+    font-size: 11px;
+    color: var(--cyan-mid);
+    transition: background 0.2s, color 0.2s;
+    margin-top: auto;
+    align-self: flex-start;
+    word-break: break-all;
+}
+
+.contact-card__email:hover {
+    background-color: var(--cyan-dark);
+    color: var(--black);
+}
+
+.contact-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #222;
+    padding: 24px 28px;
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.8;
+}
+
+.contact-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--black-card2);
+    border: 1px solid #222;
+    padding: 28px 32px;
+    gap: 24px;
+}
+
+.contact-cta__title { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+.contact-cta__sub { font-size: 12px; color: #777; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .contact-hero { padding: 48px 20px 32px; }
+    .contact-page { padding: 28px 20px; gap: 28px; }
+    .contact-cards-row { grid-template-columns: 1fr; }
+    .contact-infos { flex-direction: column; gap: 12px; text-align: center; }
+    .contact-cta { flex-direction: column; text-align: center; gap: 16px; padding: 20px; }
+}

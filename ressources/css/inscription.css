@@ -1,0 +1,374 @@
+/* ── Page Inscription ── */
+.inscrip-hero {
+    padding: 64px 48px 40px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.inscrip-hero__sub { font-size: 14px; color: #aaa; margin-top: 8px; }
+
+.inscrip-section {
+    padding: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.inscrip-form {
+    width: 100%;
+    max-width: 540px;
+    border: 1px solid #2a2a2a;
+    background-color: var(--black-card);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.form-step {
+    padding: 32px 0;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.form-step:last-child { border-bottom: none; padding-bottom: 0; }
+.form-step:first-child { padding-top: 0; }
+
+.form-step__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--cyan-dark);
+    color: var(--black);
+    font-size: 13px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.form-step__sub { font-size: 12px; color: #777; margin-top: -12px; margin-bottom: 16px; }
+
+/* ── Salle grid ── */
+.salle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.salle-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1px solid #333;
+    cursor: pointer;
+    font-size: 13px;
+    color: #aaa;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.salle-radio input[type="radio"] { display: none; }
+
+.salle-radio--active {
+    background-color: var(--cyan-dark);
+    border-color: var(--cyan-dark);
+    color: var(--black);
+    font-weight: bold;
+}
+
+.salle-radio--active::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--black);
+    flex-shrink: 0;
+}
+
+.salle-radio:not(.salle-radio--active)::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    flex-shrink: 0;
+}
+
+/* ── Jour tabs ── */
+.jour-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    width: fit-content;
+}
+
+.jour-tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    background: transparent;
+    color: #aaa;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.jour-tab--active {
+    background-color: var(--cyan-dark);
+    color: var(--black);
+    font-weight: bold;
+}
+
+/* ── Créneaux ── */
+.creneaux-date { font-size: 12px; color: var(--cyan-mid); font-weight: bold; margin-bottom: 10px; }
+
+.creneaux-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+.creneau {
+    padding: 10px 16px;
+    border: 1px solid #333;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.creneau input[type="radio"] { display: none; }
+
+.creneau--active {
+    background-color: var(--cyan-dark);
+    border-color: var(--cyan-dark);
+    color: var(--black);
+    font-weight: bold;
+}
+
+/* ── Jauge ── */
+.jauge-banner {
+    background-color: #0e2a27;
+    border: 1px solid var(--cyan-dark);
+    color: var(--cyan-light);
+    font-size: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jauge-icon { display: none; }
+
+/* ── Stepper ── */
+.stepper { display: flex; align-items: center; gap: 0; width: fit-content; margin-top: 4px; }
+
+.stepper__btn {
+    width: 40px;
+    height: 40px;
+    background-color: #222;
+    color: var(--white);
+    border: 1px solid #333;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    line-height: 1;
+}
+
+.stepper__btn:hover { background-color: var(--cyan-dark); color: var(--black); }
+
+.stepper__input {
+    width: 56px;
+    height: 40px;
+    text-align: center;
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid #333;
+    border-left: none;
+    border-right: none;
+    font-size: 16px;
+    font-weight: bold;
+    -moz-appearance: textfield;
+}
+
+.stepper__input::-webkit-outer-spin-button,
+.stepper__input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+/* ── Champs formulaire ── */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.form-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.form-fieldset legend { font-size: 13px; font-weight: bold; margin-bottom: 10px; }
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #aaa;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: color 0.2s;
+}
+
+.radio-option input[type="radio"] { display: none; }
+
+.radio-option::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    flex-shrink: 0;
+}
+
+.radio-option--active { color: var(--white); }
+
+.radio-option--active::before {
+    background-color: var(--cyan-dark);
+    border-color: var(--cyan-dark);
+}
+
+/* ── Buffet ── */
+.buffet-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: #0e2a27;
+    border: 1px solid var(--cyan-dark);
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.buffet-option input[type="checkbox"] { margin-top: 3px; accent-color: var(--cyan-dark); }
+.buffet-title { font-weight: bold; color: var(--white); }
+.buffet-sub { font-size: 11px; color: #aaa; }
+
+/* ── Blocs réservation ── */
+.resa-block {
+    border: 1px solid #2a2a2a;
+    padding: 24px;
+    margin-bottom: 12px;
+    background-color: #0d0d0d;
+}
+
+.resa-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.resa-block__label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--cyan-dark);
+    text-transform: uppercase;
+}
+
+.resa-remove {
+    background: none;
+    border: 1px solid #333;
+    color: #666;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.resa-remove:hover { border-color: var(--red); color: var(--red); }
+
+.btn-add-salle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 10px 20px;
+    border: 1px dashed #444;
+    background: transparent;
+    color: var(--cyan-dark);
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-add-salle:hover { border-color: var(--cyan-mid); color: var(--cyan-mid); }
+
+/* ── Bouton submit ── */
+.btn-inscrip {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--cyan-dark);
+    color: var(--black);
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 24px;
+    transition: background 0.2s;
+}
+
+.btn-inscrip:hover { background-color: var(--cyan-mid); }
+
+.form-confirm-note {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-top: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.form-modify {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--cyan-dark);
+    margin-top: 16px;
+    transition: color 0.2s;
+}
+
+.form-modify:hover { color: var(--cyan-mid); }
+
+.form-hint-inline { font-size: 11px; color: #555; font-weight: normal; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .inscrip-hero { padding: 48px 20px 32px; }
+    .inscrip-section { padding: 28px 16px; }
+    .inscrip-form { padding: 24px 20px; }
+    .form-row { grid-template-columns: 1fr; gap: 12px; }
+    .salle-grid { grid-template-columns: 1fr; }
+    .jour-tabs { width: 100%; }
+    .jour-tab { flex: 1; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .inscrip-form { padding: 20px 16px; }
+}

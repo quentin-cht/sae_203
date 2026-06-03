@@ -36,7 +36,9 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion — E-LLUSION</title>
+    <link rel="stylesheet" href="../ressources/css/reset.css">
     <link rel="stylesheet" href="../ressources/css/style.css">
+    <link rel="stylesheet" href="../ressources/css/connexion.css">
 </head>
 <body class="auth-body">
 

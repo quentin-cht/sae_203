@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Les Salles";
 $rootPath = "../";
+$pageCss = "salles.css";
 include '../includes/header.php';
 
 $salles = [

@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Ma réservation";
 $rootPath = "../";
+$pageCss = "ma-reservation.css";
 include '../includes/connexion_bdd.php';
 include '../includes/header.php';
 

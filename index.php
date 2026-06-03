@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Accueil";
 $rootPath = "";
+$pageCss = "index.css";
 include 'includes/header.php';
 ?>
 

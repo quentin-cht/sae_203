@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Contact";
 $rootPath = "../";
+$pageCss = "contact.css";
 include '../includes/header.php';
 
 $referents = [
