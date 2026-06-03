@@ -1,18 +1,20 @@
 <?php
-$host     = "localhost";
-$user     = "root";
-$password = "root";
-$database = "sae-203";
-$port     = 8889;
+define('SERVEUR_BD', 'localhost');
+define('PORT_BD',    8889);
+define('LOGIN_BD',   'root');
+define('PASSE_BD',   'root');
+define('NOM_BD',     'sae-203');
 
-// Connexion à la base de données
-$conn = mysqli_connect($host, $user, $password, $database, $port);
+$conn = mysqli_connect(SERVEUR_BD, LOGIN_BD, PASSE_BD, NOM_BD, PORT_BD);
 
-if (!$conn) {
-    die("Erreur de connexion : " . mysqli_connect_error());
+if (mysqli_connect_errno()) {
+    echo 'Il y a un souci avec la connexion : ' . mysqli_connect_error();
+    exit();
 }
 
-mysqli_set_charset($conn, "utf8");
+if (!mysqli_set_charset($conn, 'UTF8')) {
+    echo 'Il y a un souci d\'encodage';
+}
 
 // Protection XSS : échappe les caractères HTML dans les données utilisateur
 function h($texte) {

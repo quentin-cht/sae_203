@@ -1,3 +1,5 @@
+</main>
+
 <footer class="footer">
     <div class="footer__left">
         <div class="footer__logo">E-LLUSION</div>

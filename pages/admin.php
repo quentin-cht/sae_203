@@ -282,7 +282,7 @@ for ($i = 0; $i < $nb_ps; $i++) {
                     <td><?php echo $label_heure . ' — ' . $label_jour; ?></td>
                     <td><?php echo $r['nb_personnes']; ?></td>
                     <td class="admin-table__actions">
-                        <button class="btn-modifier" onclick="chargerEdition(<?php echo $r['id_inscriptions']; ?>, '<?php echo addslashes(h($r['nom'])); ?>', '<?php echo addslashes(h($r['prenom'])); ?>', <?php echo $r['id_salles']; ?>, <?php echo $r['id_creneaux']; ?>, <?php echo $r['nb_personnes']; ?>)">Modifier</button>
+                        <button type="button" class="btn-modifier" onclick="chargerEdition(<?php echo $r['id_inscriptions']; ?>, '<?php echo addslashes(h($r['nom'])); ?>', '<?php echo addslashes(h($r['prenom'])); ?>', <?php echo $r['id_salles']; ?>, <?php echo $r['id_creneaux']; ?>, <?php echo $r['nb_personnes']; ?>)">Modifier</button>
                         <form method="post" action="admin.php" style="display:inline" onsubmit="return confirm('Supprimer la réservation de <?php echo $r['nom']; ?> <?php echo $r['prenom']; ?> ?')">
                             <input type="hidden" name="action" value="supprimer">
                             <input type="hidden" name="id" value="<?php echo $r['id_inscriptions']; ?>">
