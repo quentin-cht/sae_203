@@ -147,10 +147,11 @@ for ($i = 0; $i < $nb_ps; $i++) {
         <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
         <?php
             $c = $tous_creneaux[$i];
-            $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN';
-            $lh = date('H\hi', strtotime($c['heure']));
+            $lj = ($c['jour'] < '2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN';
+            $lh = substr($c['heure'], 0, 5);
             // Afficher le label du jour avant le premier créneau de chaque journée
-            if ($i == 0 || $lj != (strtotime($tous_creneaux[$i-1]['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN')) :
+            $lj_prec = ($i > 0) ? (($tous_creneaux[$i-1]['jour'] < '2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN') : '';
+            if ($i == 0 || $lj != $lj_prec) :
         ?>
         <div class="admin-creneaux-group">
             <p class="admin-creneaux-label"><?php echo $lj; ?></p>
@@ -158,7 +159,7 @@ for ($i = 0; $i < $nb_ps; $i++) {
         <?php endif; ?>
                 <a href="admin.php?creneau=<?php echo $c['id_creneaux']; ?>#creneaux" class="admin-creneau <?php echo $creneau_filtre == $c['id_creneaux'] ? 'admin-creneau--active' : ''; ?>"><?php echo $lh; ?></a>
         <?php
-            $next_lj = ($i + 1 < count($tous_creneaux)) ? (strtotime($tous_creneaux[$i+1]['jour']) < strtotime('2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN') : '';
+            $next_lj = ($i + 1 < count($tous_creneaux)) ? (($tous_creneaux[$i+1]['jour'] < '2026-06-19') ? 'CRÉNEAUX JEUDI 18 JUIN' : 'CRÉNEAUX VENDREDI 19 JUIN') : '';
             if ($i == count($tous_creneaux) - 1 || $next_lj != $lj) :
         ?>
             </div>
@@ -176,8 +177,8 @@ for ($i = 0; $i < $nb_ps; $i++) {
                 $label_cren = '';
                 for ($i = 0; $i < count($tous_creneaux); $i++) {
                     if ($tous_creneaux[$i]['id_creneaux'] == $creneau_filtre) {
-                        $lj = strtotime($tous_creneaux[$i]['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
-                        $label_cren = date('H\hi', strtotime($tous_creneaux[$i]['heure'])) . ' — ' . $lj;
+                        $lj = ($tous_creneaux[$i]['jour'] < '2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                        $label_cren = substr($tous_creneaux[$i]['heure'], 0, 5) . ' — ' . $lj;
                     }
                 }
             ?>
@@ -234,8 +235,8 @@ for ($i = 0; $i < $nb_ps; $i++) {
                 <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
                 <?php
                     $c = $tous_creneaux[$i];
-                    $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
-                    $lh = date('H\hi', strtotime($c['heure']));
+                    $lj = ($c['jour'] < '2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                    $lh = substr($c['heure'], 0, 5);
                 ?>
                 <option value="<?php echo $c['id_creneaux']; ?>" <?php echo (isset($_GET['creneau']) && $_GET['creneau'] == $c['id_creneaux']) ? 'selected' : ''; ?>><?php echo $lh . ' — ' . $lj; ?></option>
                 <?php endfor; ?>
@@ -269,8 +270,8 @@ for ($i = 0; $i < $nb_ps; $i++) {
                 <?php for ($i = 0; $i < count($reservations); $i++) : ?>
                 <?php $r = $reservations[$i]; ?>
                 <?php
-                    $label_jour   = strtotime($r['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
-                    $label_heure  = date('H\hi', strtotime($r['heure']));
+                    $label_jour  = ($r['jour'] < '2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                    $label_heure = substr($r['heure'], 0, 5);
                 ?>
                 <tr>
                     <td class="admin-table__id"><?php echo $r['id_inscriptions']; ?></td>
@@ -335,8 +336,8 @@ for ($i = 0; $i < $nb_ps; $i++) {
                             <?php for ($i = 0; $i < count($tous_creneaux); $i++) : ?>
                             <?php
                                 $c = $tous_creneaux[$i];
-                                $lj = strtotime($c['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
-                                $lh = date('H\hi', strtotime($c['heure']));
+                                $lj = ($c['jour'] < '2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                                $lh = substr($c['heure'], 0, 5);
                             ?>
                             <option value="<?php echo $c['id_creneaux']; ?>"><?php echo $lh . ' — ' . $lj; ?></option>
                             <?php endfor; ?>

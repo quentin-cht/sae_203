@@ -108,12 +108,7 @@ img { max-width: 100%; display: block; }
     transition: transform 0.3s, opacity 0.3s;
 }
 
-/* Animation burger → croix */
-.navbar__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.navbar__burger--open span:nth-child(2) { opacity: 0; }
-.navbar__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* ── Menu mobile (caché par défaut) ── */
+/* ── Menu mobile (caché par défaut, affiché via JS style.display) ── */
 .navbar__mobile {
     display: none;
     flex-direction: column;
@@ -124,8 +119,6 @@ img { max-width: 100%; display: block; }
     top: 57px;
     z-index: 99;
 }
-
-.navbar__mobile--open { display: flex; }
 
 .navbar__mobile a {
     padding: 16px 24px;

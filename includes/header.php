@@ -36,15 +36,16 @@
 </div>
 
 <script>
+var menuOuvert = false;
+
 function toggleMenu() {
     var menu = document.getElementById('mobileMenu');
-    var burger = document.getElementById('burger');
-    if (menu.classList.contains('navbar__mobile--open')) {
-        menu.classList.remove('navbar__mobile--open');
-        burger.classList.remove('navbar__burger--open');
+    if (menuOuvert == false) {
+        menu.style.display = 'flex';
+        menuOuvert = true;
     } else {
-        menu.classList.add('navbar__mobile--open');
-        burger.classList.add('navbar__burger--open');
+        menu.style.display = 'none';
+        menuOuvert = false;
     }
 }
 </script>

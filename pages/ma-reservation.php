@@ -133,7 +133,7 @@ if ($email_session != '' && $reference_session != '') {
                 "id_salle"       => $row['salles_id_salles'],
                 "id_creneau"     => $row['creneaux_id_creneaux'],
                 "salle"          => $row['nom_salle'],
-                "creneau"        => date('H\hi', strtotime($row['heure'])) . ' — ' . (strtotime($row['jour']) < strtotime('2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin')
+                "creneau"        => substr($row['heure'], 0, 5) . ' — ' . ($row['jour'] < '2026-06-19' ? 'Jeudi 18 juin' : 'Vendredi 19 juin')
             ];
         }
     } elseif ($erreur == '' && $message_ok == '') {
@@ -266,8 +266,8 @@ if ($email_session != '' && $reference_session != '') {
                                     <?php for ($j = 0; $j < count($tous_creneaux); $j++) : ?>
                                     <?php
                                         $c = $tous_creneaux[$j];
-                                        $label_jour = (strtotime($c['jour']) < strtotime('2026-06-19')) ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
-                                        $label_heure = date('H\hi', strtotime($c['heure']));
+                                        $label_jour = ($c['jour'] < '2026-06-19') ? 'Jeudi 18 juin' : 'Vendredi 19 juin';
+                                        $label_heure = substr($c['heure'], 0, 5);
                                     ?>
                                     <option value="<?php echo $c['id_creneaux']; ?>"
                                         <?php echo ($c['id_creneaux'] == $rs['id_creneau']) ? 'selected' : ''; ?>>

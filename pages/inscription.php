@@ -66,12 +66,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nom'])) {
             if ($id_salle > 0 && $id_creneau > 0) {
 
                 // Vérifier combien de places sont déjà prises pour cette salle + créneau
-                $res_check = mysqli_query($conn, "SELECT COALESCE(SUM(nb_personnes), 0) AS total
+                $res_check = mysqli_query($conn, "SELECT SUM(nb_personnes) AS total
                                                   FROM inscriptions
                                                   WHERE salles_id_salles = $id_salle
                                                   AND creneaux_id_creneaux = $id_creneau");
                 $check = mysqli_fetch_assoc($res_check);
-                $places_prises = intval($check['total']);
+                // Si aucune inscription, SUM retourne NULL → on met 0
+                if ($check['total'] == null) {
+                    $places_prises = 0;
+                } else {
+                    $places_prises = intval($check['total']);
+                }
                 $places_restantes = 12 - $places_prises;
 
                 if ($nb_personnes > $places_restantes) {
