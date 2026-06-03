@@ -5,13 +5,10 @@ $password = "root";
 $database = "sae-203";
 $port     = 8889;
 
-// Initialise l'objet de connexion (méthode en 2 étapes comme vu en cours)
-$conn = mysqli_init();
+// Connexion à la base de données
+$conn = mysqli_connect($host, $user, $password, $database, $port);
 
-// Établit la connexion avec le serveur MySQL
-$succes = mysqli_real_connect($conn, $host, $user, $password, $database, $port);
-
-if (!$succes) {
+if (!$conn) {
     die("Erreur de connexion : " . mysqli_connect_error());
 }
 
